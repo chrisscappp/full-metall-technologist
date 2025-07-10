@@ -1,0 +1,25 @@
+.OpeningCard {
+	padding: 16px 28px;
+	background: var(--card-bg);
+	border-radius: 18px;
+	box-shadow: 4px 4px 14px 0px rgba(34, 60, 80, 0.1);
+	width: 100%;
+	display: flex;
+	position: relative;
+	gap: 16px;
+}
+
+.main {
+	cursor: pointer;
+}
+
+.arrow {
+	cursor: pointer;
+	margin-left: auto;
+	width: 36px;
+	height: 36px;
+}
+
+.additional {
+	margin-top: 16px;
+}

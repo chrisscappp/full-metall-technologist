@@ -1,0 +1,36 @@
+:root {
+	--font-family-name: "Inter", "serif",
+
+	// Text
+	--font-size-s-text: 16px;
+	--font-size-s-title: 24px;
+	--font-line-s-text: 16px;
+	--font-line-s-title: 26px;
+
+	--font-size-m-text: 20px;
+	--font-size-m-title: 32px;
+	--font-line-m-text: 25px;
+	--font-line-m-title: 38px;
+	
+	--font-size-l-text: 24px;
+	--font-size-l-title: 36px;
+	--font-line-l-text: 28px;
+	--font-line-l-title: 44px;
+
+	--font-size-xl-text: 38px;
+	--font-size-xl-title: 50px;
+	--font-line-xl-text: 40px;
+	--font-line-xl-title: 52px;
+
+	// Button
+	--button-s-height: 32px;
+	--button-m-height: 44px;
+	--button-l-height: 52px;
+	--button-xl-height: 64px;
+
+	// Loader
+	--loader-color: rgb(0, 38, 255);
+
+	// Colors
+	--red-light: #FF0000;
+}

@@ -1,0 +1,17 @@
+@use "./reset.scss";
+@use "./themes/light.scss";
+@use "./themes/dark.scss";
+@use "./variables/global.scss";
+
+.app {
+	display: flex;
+	background: var(--bg-color);
+	min-height: 100vh;
+	font-weight: normal;
+	font-family: 'Inter-Regular', sans-serif;
+}
+
+@font-face {
+	font-family: 'Inter-Regular';
+	src: url('../../assets/fonts/Inter-Regular.woff') format('opentype');
+}

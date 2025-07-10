@@ -1,0 +1,31 @@
+.app_dark_theme {
+	--bg-color: #131313;
+	--inverted-bg-color: #fff;
+
+	--primary-text-color: #fff;
+	--secondary-text-color: #131313;
+
+	--inverted-primary-text-color: #131313;
+	--inverted-secondary-text-color: #fff;
+
+	// Button
+	--button-primary: #fff;
+	--button-hovered-text: #636363;
+
+	// Input
+	--input-bg-color: #e8e8e8;
+	--input-focused-color: #3f70a9;
+
+	// Theme Switcher
+	--theme-switcher-bg: #131313;
+	--theme-switcher-label: #131313;
+
+	// Sidebar
+	--sidebar-bg: #fff; 
+
+	// Card
+	--card-bg: #00020F;
+
+	// Loader
+	--loader-color: #fff;
+}

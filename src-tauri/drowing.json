@@ -1,0 +1,16 @@
+{
+    "error": "",
+    "modelParams": {
+        "variables": {
+            "up_init_diameter": 30.0
+        },
+        "material": "Сталь 10 ГОСТ 1050-2013",
+        "mass": 237.5584661343467,
+        "filePath": "C:\\Users\\mrger\\OneDrive\\Рабочий стол\\Модель ОБЖИМ.m3d",
+        "fileName": "Модель ОБЖИМ.m3d",
+        "density": 7.856,
+        "volume": 30239
+    },
+    "kompasVersion": "КОМПАС-3D v23",
+    "kompasApiVersion": "7"
+}

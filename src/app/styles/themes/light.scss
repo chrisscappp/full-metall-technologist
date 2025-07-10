@@ -1,0 +1,31 @@
+.app_light_theme {
+	--bg-color: #fff;
+	--inverted-bg-color: #131313;
+
+	--primary-text-color: #131313;
+	--secondary-text-color: #fff;
+
+	--inverted-primary-text-color: #fff;
+	--inverted-secondary-text-color: #131313;
+
+	// Button
+	--button-primary: #2A8CFF;
+	--button-hovered-text: #cacaca;
+
+	// Input
+	--input-bg-color: #efefef;
+	--input-focused-color: #2a2aff;
+
+	// Theme Switcher
+	--theme-switcher-bg: #131313;
+	--theme-switcher-label: #fff;
+
+	// Sidebar
+	--sidebar-bg: rgb(0, 38, 255); 
+
+	// Card
+	--card-bg: #ffffff;
+
+	// Loader
+	--loader-color: rgb(0, 38, 255);
+}

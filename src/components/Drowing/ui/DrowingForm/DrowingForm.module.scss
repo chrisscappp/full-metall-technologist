@@ -1,0 +1,19 @@
+.inputs {
+	margin-top: 20px;
+}
+
+.title {
+	margin-bottom: 4px;
+}
+
+.result {
+	margin-top: 32px;
+}
+
+.btn {
+	width: 100%;
+	transition: 0.3s;
+	&:hover {
+		opacity: 0.5;
+	}
+}

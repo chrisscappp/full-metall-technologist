@@ -1,0 +1,27 @@
+.SelectWrapper {
+	display: flex;
+}
+
+.label {
+	font-size: var(--font-size-m-text);
+	color: var(--primary-text-color);
+	margin-right: 5px;
+}
+
+.select {
+	width: 100%;
+	background: none;
+	outline: none;
+	color: var(--primary-text-color);
+	padding: 6px;
+	border: 1px solid var(--primary-text-color);
+	font-size: var(--font-size-m-text);
+	cursor: pointer;
+}
+
+.option {
+	padding: 8px;
+	color: var(--primary-text-color);
+	background: var(--card-bg);
+	font-size: var(--font-size-m-text);
+}

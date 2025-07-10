@@ -1,0 +1,64 @@
+.ThemeSwitcher {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.icon {
+	width: 48px;
+	height: 48px;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+}
+
+.switch input {
+	display: none;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--theme-switcher-bg);
+	transition: .4s;
+}
+
+.ball {
+	position: absolute;
+	border-radius: 50%;
+	content: "";
+	height: 30px;
+	width: 30px;
+	left: -2px;
+	top: 0px;
+	background-color: var(--theme-switcher-label);
+	transition: .4s;
+}
+
+.isSwitched {
+	transform: translateX(36px);
+}
+
+.bgSwithed {
+	background: none;
+	border: 3px solid var(--theme-switcher-bg);
+	position: absolute;
+	left: -4px;
+	bottom: -4px;
+}
+
+.round {
+	border-radius: 34px;
+}
+
+.round:before {
+	border-radius: 50%;
+}
