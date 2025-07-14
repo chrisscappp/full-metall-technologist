@@ -1,5 +1,6 @@
-import { CrimpingCalculateResult, CrimpingFormParams } from '../types/crimping'
 import { decimalPlacesCount } from '@/utils/consts/calculate'
+import { CrimpingCalculateOperationData, CrimpingCalculateResult, CrimpingFormParams } from '../types/crimping'
+import { ctg } from '@/utils/functions/maths/ctg'
 
 type CalculateRelativeThinCoeffParams = Pick<CrimpingFormParams, 'coeff_of_stock' | 'angle_a' | 'angle_b'> & {
 	difference_walls: number
@@ -10,108 +11,62 @@ const calculateRelativeThinCoeff = (params: CalculateRelativeThinCoeffParams) =>
 	
 	const angle_difference = angle_a - angle_b
 	
-	const first = ((coeff_of_stock * 1.25) / (1 - 0.5 * difference_walls))
+	const first = ((coeff_of_stock * 1.25) / (1 - (0.5 * difference_walls)))
 	const second_1 = 0.125 * Math.tan(angle_difference * (3.14 / 180))
 	const second_2 = (Math.tan((angle_difference / 2) * (3.14 / 180))) / (6 * Math.cos(angle_difference * (3.14 / 180)))
 
 	return Number((first * Math.pow((second_1 + second_2), 2)).toFixed(10))
 }
 
-const calculateCrimpingOperationsCount = (params: CrimpingFormParams) => {
-	const {
-		angle_a, angle_a_after_first, angle_b, coeff_of_stock, yield_strength,
-		up_init_diameter, down_init_diameter, up_init_thin,
-		ramp_height, relative_uniform_contraction, strength_limit, allow_thin
-	} = params
-	
-	// Операции
-	const result: CrimpingCalculateResult = {
-		operationsCount: 0,
-		operationsData: [],
-		degree_of_deformation: Number((Math.log(1 / (up_init_diameter / down_init_diameter))).toFixed(decimalPlacesCount)),
-		result_coeff_of_crimping: 0,
-		limit_coeff_of_crimping: 0
-	}
-	// Относительная толщина
-	const relative_thin = Number((up_init_thin / down_init_diameter).toFixed(decimalPlacesCount))
-	// Показатель разностенности
-	const difference_walls = Number((up_init_thin - (up_init_thin - allow_thin) / ((up_init_thin - (up_init_thin - allow_thin) / 2))).toFixed(decimalPlacesCount))
-
-	// Первый коэф. + проверка с отн. толщиной
-	const firstRelativeThinCoeff = calculateRelativeThinCoeff({
-		angle_a,
-		angle_b,
-		coeff_of_stock,
-		difference_walls
-	})
-	console.log('Коэф. на первой проверке', relative_thin, firstRelativeThinCoeff)
-	
-	result.operationsCount += 1
-	// Коэф. первого обжима
-	const coeffOfFirstCrimp = Number((1 - ((ramp_height * Math.tan(angle_a_after_first * (3.14 / 180))) / down_init_diameter)).toFixed(decimalPlacesCount))
-	// Толщина кромки заготовки
-	const thinOfCromk = Number((up_init_thin / Math.pow(coeffOfFirstCrimp, 1 / 2)).toFixed(decimalPlacesCount))
-	// Диаметр дульца
-	const diameter_dulca = Number((coeffOfFirstCrimp * down_init_diameter).toFixed(decimalPlacesCount))
-
-	result.operationsData.push({
-		coeff_of_crimping: coeffOfFirstCrimp,
-		thin_of_cromk:  thinOfCromk,
-		diameter_dulca,
-		angle_a: Number(angle_a),
-		executive_diameter_of_matrix: 0,
-		allowance_for_wear_of_matrix: 0,
-		elastic_unloading: 0,
-		inaccuracy_tolerance: 0.02,
-		skat_height: 0,
-		median_diameter: 0,
-		circle_radius: 0,
-		diameter_of_crimping_rod: 0,
-		tech_strength: 0
-	})
-	
-	// Итоговый коэф. обжима
-	result.result_coeff_of_crimping = Number((up_init_diameter / down_init_diameter).toFixed(decimalPlacesCount))
+interface CalculateCrimpingOperationsCountResult {
+	operations: CrimpingCalculateOperationData[],
+	operationsCount: number
+}
+const calculateCrimpingOperationsCount = (firstOperation: CrimpingCalculateOperationData, params: CrimpingFormParams, difference_walls: number, initAngle: number): CalculateCrimpingOperationsCountResult => {
 	// Некий коэфициент для расчета пред. коэф. обжима
-	const coeff = Number((1.5 * (strength_limit / Math.pow(1 - relative_uniform_contraction, 2)) * (1.35 - 2 * relative_uniform_contraction) * Math.pow(up_init_thin / down_init_diameter, 1 / 2) * Math.sin(angle_a)).toFixed(decimalPlacesCount))
+	const coeff = Number((1.5 * (params.strength_limit / Math.pow(1 - params.relative_uniform_contraction, 2)) * (1.35 - 2 * params.relative_uniform_contraction) * Math.pow(params.up_init_thin / params.down_init_diameter, 1 / 2) * Math.sin(initAngle * (3.14 / 180))).toFixed(decimalPlacesCount))
 	// Критич. предел прочности
-	const critical_strength_limit = Number(((yield_strength + strength_limit) / 2).toFixed(decimalPlacesCount))
-	// Предельный коэф. обжима
-	result.limit_coeff_of_crimping = Number((2 * (1 - relative_uniform_contraction) - Math.pow((Math.pow(1 - 2 * relative_uniform_contraction, 2) + ( (1.6 * critical_strength_limit * Math.cos(angle_a * (3.14 / 180)) - coeff * Math.pow(1 - relative_uniform_contraction, 2)) / (strength_limit * (1 + 0.12 * ctg(angle_a)) * (3 - 2 * Math.cos(angle_a * (3.14 / 180)))) )), 1 / 2)).toFixed(decimalPlacesCount))
+	const critical_strength_limit = Number(((params.yield_strength + params.strength_limit) / 2).toFixed(decimalPlacesCount))
 
-	if (relative_thin >= firstRelativeThinCoeff) {
-		return result
-	}
-
-	result.operationsData[0].angle_a = angle_a_after_first
+	const operations = [firstOperation]
+	let operationsCount = 1
+	// Угол бета
+	let new_angle_b = params.angle_b
 
 	var operationIndex = 0
-	for (var newAngle = angle_a_after_first; newAngle > 0; newAngle--) {
-		// Коэф. первого обжима
-		const coeffOfFirstCrimp = Number((1 - ((ramp_height / result.operationsData[operationIndex].diameter_dulca) * Math.tan(newAngle * (3.14 / 180)))).toFixed(decimalPlacesCount))
-		console.log('coeffOfFirstCrimp', coeffOfFirstCrimp)
+	for (var newAngle = initAngle; newAngle > 0; newAngle *= 0.6) {
+		new_angle_b = new_angle_b * 0.5
+		// Коэф.обжима
+		const coeffOfFirstCrimp = Number((1 - ((params.ramp_height / operations[operationIndex].diameter_dulca) * Math.tan(newAngle * (3.14 / 180)))).toFixed(decimalPlacesCount))
+		// Предельный коэф. обжима
+		const limit_coeff_of_crimping = Number((2 * (1 - params.relative_uniform_contraction) - Math.pow((Math.pow(1 - 2 * params.relative_uniform_contraction, 2) + ( (1.6 * critical_strength_limit * Math.cos(initAngle * (3.14 / 180)) - coeff * Math.pow(1 - params.relative_uniform_contraction, 2)) / (params.strength_limit * (1 + 0.12 * ctg(initAngle)) * (3 - 2 * Math.cos(initAngle * (3.14 / 180)))) )), 1 / 2)).toFixed(decimalPlacesCount))
+		//console.log('jopa', result_coeff_of_crimping, limit_coeff_of_crimping)
+		if (!(coeffOfFirstCrimp >= limit_coeff_of_crimping)) {
+			return { operations: [], operationsCount: 0 }
+		}
 		// Толщина кромки заготовки
-		const thinOfCromk = Number((result.operationsData[operationIndex].thin_of_cromk / Math.pow(coeffOfFirstCrimp, 1 / 2)).toFixed(decimalPlacesCount))
+		const thinOfCromk = Number((operations[operationIndex].thin_of_cromk / Math.pow(coeffOfFirstCrimp, 1 / 2)).toFixed(decimalPlacesCount))
 		// Диаметр дульца
-		const diameter_dulca = Number((coeffOfFirstCrimp * result.operationsData[operationIndex].diameter_dulca).toFixed(decimalPlacesCount))
-		console.log('diameter_dulca', diameter_dulca)
+		const diameter_dulca = Number((coeffOfFirstCrimp * operations[operationIndex].diameter_dulca).toFixed(decimalPlacesCount))
 		// Коэф для проверки S1 D1
 		const coeffForEqual = thinOfCromk / diameter_dulca
-		// Второй коэф. + проверка с отн. толщиной
+		// Показатель разностенности
 		const secondRelativeThinCoeff = calculateRelativeThinCoeff({
 			angle_a: newAngle,
-			angle_b,
-			coeff_of_stock,
+			angle_b: new_angle_b,
+			coeff_of_stock: params.coeff_of_stock,
 			difference_walls
 		})
 
 		if (coeffForEqual < secondRelativeThinCoeff) {
-			result.operationsCount += 1
-			result.operationsData.push({
+			operationsCount += 1
+			operations.push({
 				coeff_of_crimping: coeffOfFirstCrimp,
 				diameter_dulca: diameter_dulca,
+				limit_coeff_of_crimping,
 				thin_of_cromk: thinOfCromk,
 				angle_a: Number(newAngle),
+				angle_b: new_angle_b,
 				executive_diameter_of_matrix: 0,
 				allowance_for_wear_of_matrix: 0,
 				elastic_unloading: 0,
@@ -125,17 +80,17 @@ const calculateCrimpingOperationsCount = (params: CrimpingFormParams) => {
 			operationIndex += 1
 		} else {
 			// Коэф. первого обжима
-			const lastCoeffOfCrimping = params.up_init_diameter / result.operationsData[operationIndex].diameter_dulca
+			const lastCoeffOfCrimping = Number((params.up_init_diameter / operations[operationIndex].diameter_dulca).toFixed(decimalPlacesCount))
 			// Толщина кромки заготовки
-			const lastThinOfCromk = Number((result.operationsData[operationIndex].thin_of_cromk / Math.pow(lastCoeffOfCrimping, 1 / 2)).toFixed(decimalPlacesCount))
-			// Диаметр дульца
-			const lastDiameterDulca = Number((lastCoeffOfCrimping * result.operationsData[operationIndex].diameter_dulca).toFixed(decimalPlacesCount))
-			result.operationsCount += 1
-			result.operationsData.push({
+			const lastThinOfCromk = Number((operations[operationIndex].thin_of_cromk / Math.pow(lastCoeffOfCrimping, 1 / 2)).toFixed(decimalPlacesCount))
+			operationsCount += 1
+			operations.push({
 				coeff_of_crimping: lastCoeffOfCrimping,
-				diameter_dulca: lastDiameterDulca,
+				diameter_dulca: params.up_init_diameter,
+				limit_coeff_of_crimping,
 				thin_of_cromk: lastThinOfCromk,
-				angle_a: Number(angle_a),
+				angle_a: Number(params.angle_a),
+				angle_b: params.angle_b,
 				executive_diameter_of_matrix: 0,
 				allowance_for_wear_of_matrix: 0,
 				elastic_unloading: 0,
@@ -146,17 +101,94 @@ const calculateCrimpingOperationsCount = (params: CrimpingFormParams) => {
 				diameter_of_crimping_rod: 0,
 				tech_strength: 0
 			})
+
 			break
 		}
 	}
 
-	// условие что Итоговый коэф. обжима >= Предельный коэф. обжима
-	// если оно не выполняется, то операций больше чем 1
+	return { operations, operationsCount }
+}
+
+const calculateCrimpingOperationsData = (params: CrimpingFormParams) => {
+	const {
+		angle_a, angle_b, coeff_of_stock, yield_strength,
+		up_init_diameter, down_init_diameter, up_init_thin,
+		ramp_height, relative_uniform_contraction, strength_limit, allow_thin
+	} = params
+	
+	// Операции
+	const result: CrimpingCalculateResult = {
+		operationsCount: 0,
+		operationsData: [],
+		degree_of_deformation: Number((Math.log(1 / (up_init_diameter / down_init_diameter))).toFixed(decimalPlacesCount))
+	}
+	// Относительная толщина
+	const relative_thin = Number((up_init_thin / down_init_diameter).toFixed(decimalPlacesCount))
+	// Показатель разностенности
+	const difference_walls = (up_init_thin - (up_init_thin - allow_thin)) / ((up_init_thin + (up_init_thin - allow_thin)) / 2)
+
+	// Первый коэф. + проверка с отн. толщиной
+	const firstRelativeThinCoeff = calculateRelativeThinCoeff({
+		angle_a,
+		angle_b,
+		coeff_of_stock,
+		difference_walls
+	})
+	
+	result.operationsCount += 1
+	// Коэф. первого обжима
+	const coeffOfFirstCrimp = Number((1 - ((ramp_height * Math.tan(angle_a * 0.6 * (3.14 / 180))) / down_init_diameter)).toFixed(decimalPlacesCount))
+	// Толщина кромки заготовки
+	const thinOfCromk = Number((up_init_thin / Math.pow(coeffOfFirstCrimp, 1 / 2)).toFixed(decimalPlacesCount))
+	// Диаметр дульца
+	const diameter_dulca = Number((coeffOfFirstCrimp * down_init_diameter).toFixed(decimalPlacesCount))
+	// Некий коэфициент для расчета пред. коэф. обжима
+	const coeff = Number((1.5 * (strength_limit / Math.pow(1 - relative_uniform_contraction, 2)) * (1.35 - 2 * relative_uniform_contraction) * Math.pow(up_init_thin / down_init_diameter, 1 / 2) * Math.sin(angle_a)).toFixed(decimalPlacesCount))
+	// Критич. предел прочности
+	const critical_strength_limit = Number(((yield_strength + strength_limit) / 2).toFixed(decimalPlacesCount))
+	// Предельный коэф. обжима
+	const limit_coeff_of_crimping = Number((2 * (1 - relative_uniform_contraction) - Math.pow((Math.pow(1 - 2 * relative_uniform_contraction, 2) + ( (1.6 * critical_strength_limit * Math.cos(angle_a * (3.14 / 180)) - coeff * Math.pow(1 - relative_uniform_contraction, 2)) / (strength_limit * (1 + 0.12 * ctg(angle_a)) * (3 - 2 * Math.cos(angle_a * (3.14 / 180)))) )), 1 / 2)).toFixed(decimalPlacesCount))
+	// Итоговый коэф. обжима
+	const result_coeff_of_crimping = Number((up_init_diameter / down_init_diameter).toFixed(decimalPlacesCount))
+
+	result.operationsData.push({
+		coeff_of_crimping: coeffOfFirstCrimp,
+		thin_of_cromk:  thinOfCromk,
+		limit_coeff_of_crimping,
+		diameter_dulca,
+		angle_a: Number(angle_a),
+		angle_b,
+		executive_diameter_of_matrix: 0,
+		allowance_for_wear_of_matrix: 0,
+		elastic_unloading: 0,
+		inaccuracy_tolerance: 0.02,
+		skat_height: 0,
+		median_diameter: 0,
+		circle_radius: 0,
+		diameter_of_crimping_rod: 0,
+		tech_strength: 0
+	})
+	
+	if (relative_thin >= firstRelativeThinCoeff && result_coeff_of_crimping >= limit_coeff_of_crimping) {
+		return result
+	}
+
+	let operationsCountData: CalculateCrimpingOperationsCountResult = {
+		operations: [],
+		operationsCount: result.operationsCount
+	}
+
+	while (operationsCountData.operations.length === 0) {
+		result.operationsData[0].angle_a *= 0.6
+		result.operationsData[0].angle_b *= 0.5
+		operationsCountData = calculateCrimpingOperationsCount(result.operationsData[0], params, difference_walls, result.operationsData[0].angle_a)
+	}
+
+	result.operationsData = operationsCountData.operations
+	result.operationsCount = operationsCountData.operationsCount
 
 	return result
 }
-
-function ctg(x: number) { return 1 / Math.tan(x * (3.14 / 180)) }
 
 const calculateExecutiveDemesions = (operationsCountResult: CrimpingCalculateResult, params: CrimpingFormParams) => {
 	let operationIndex = 0
@@ -238,10 +270,10 @@ const calculateExecutiveDemesions = (operationsCountResult: CrimpingCalculateRes
 	}
 
 	return operationsCountResult
-}
+}	
 
-export const calculateCrimping = (params: CrimpingFormParams) => {
-	const operationsCountResult = calculateCrimpingOperationsCount(params)
+export const newCalculateCrimping = (params: CrimpingFormParams) => {
+	const operationsCountResult = calculateCrimpingOperationsData(params)
 	const executiveDemensionsResult = calculateExecutiveDemesions(operationsCountResult, params)
 	return executiveDemensionsResult
 }

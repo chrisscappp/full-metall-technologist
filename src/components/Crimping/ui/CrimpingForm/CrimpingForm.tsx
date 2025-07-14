@@ -9,7 +9,6 @@ import { Input } from '@/UI/Input/Input'
 import { basedValidateFormRule } from '@/utils/consts/reactHookForm'
 import { crimpingTabsConfig } from '../../lib/consts/crimpingTabs'
 import { Button } from '@/UI/Button/Button'
-import { calculateCrimping } from '../../lib/helpers/calculateCrimping'
 import { CrimpingResult } from '../CrimpingResult/CrimpingResult'
 import cls from './CrimpingForm.module.scss'
 import { getCurrentDate } from '@/utils/functions/getCurrentDate'
@@ -20,37 +19,37 @@ import { DetailMaterialValue, DetailMaterialValueType, SelectMaterial } from '@/
 import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/ParseModelVariables'
 import CrimpingSketch from '@/assets/image/crimping.jpg'
 import { useCopyText } from '@/utils/hooks/useCopyText'
+import { newCalculateCrimping } from '../../lib/helpers/calculateCrimping'
 
 interface CrimpingFormProps {
 	className?: string
 }
 
-// const initialParams: CrimpingFormParams = {
-//     up_init_diameter: 80,                    // Диаметр в.р.с
-//     mid_init_diameter: 85,                   // Диаметр с.р.с
-// 	down_init_diameter: 95.95,               // Диаметр н.р.с
-// 	up_init_thin: 1.7,                       // Толщина в.р.с
-//     mid_init_thin: 2,                        // Толщина с.р.с
-// 	down_init_thin: 3,                       // Толщина н.р.с
-// 	allow_thin: 0.02,                        // Допуск на толщину
-//     strength_limit: 200,                     // Предел прочности
-//     yield_strength: 160,                     // Предел текучести
-//     relative_uniform_contraction: 0.16,      // Относительное равномерное сужение
-//     ramp_height: 50.1,                       // Высота ската
-//     angle_a: 32,                             // Угол альфа
-//     angle_b: 1,                              // Угол бэта
-//     angle_a_after_first: 20,                 // Угол альфа после 1-ой операции
-// 	coeff_of_stock: 2.5,                     // Коэф. запаса устойчивости
-// 	material: DetailMaterialValue.STEEL_10,  // Материал 
-// 	operator_name: 'Вася',                   // Имя оператора
-// 	organization_name: '"ЗАО" БЕЩЕКИ',       // Организация
-// 	detail_name: 'Гильза мощная'             // Наименование детали
-// }
+const initialParams: CrimpingFormParams = {
+    up_init_diameter: 75,                        // Диаметр в.р.с
+    mid_init_diameter: 130,                      // Диаметр с.р.с
+	down_init_diameter: 145,                     // Диаметр н.р.с
+	up_init_thin: 2,                             // Толщина в.р.с
+    mid_init_thin: 3,                            // Толщина с.р.с
+	down_init_thin: 4,                           // Толщина н.р.с
+	allow_thin: 0.25,                            // Допуск на толщину
+    strength_limit: 300,                         // Предел прочности
+    yield_strength: 200,                         // Предел текучести
+    relative_uniform_contraction: 0.2,           // Относительное равномерное сужение
+    ramp_height: 25,                             // Высота ската
+    angle_a: 47,                                 // Угол альфа
+    angle_b: 1,                                  // Угол бэта
+	coeff_of_stock: 2,                           // Коэф. запаса устойчивости
+	material: DetailMaterialValue.STEEL_10,      // Материал 
+	operator_name: 'Вася',                       // Имя оператора
+	organization_name: '"ЗАО" БЕЩЕКИ',           // Организация
+	detail_name: 'Гильза мощная'                 // Наименование детали
+}
 
 export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 	
 	const { register, handleSubmit, formState: { errors }, setValue, getValues, watch } = useForm<CrimpingFormParams>({
-		defaultValues: { material: DetailMaterialValue.STEEL_10 }
+		defaultValues: initialParams
 	})
 	const [crimpingResult, setCrimpingResult] = useState<CrimpingCalculateResult>()
 	const { onCopyText } = useCopyText()
@@ -62,7 +61,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 			//@ts-ignore
 			data[key] = Number(data[key])
 		}
-		const result = calculateCrimping(data)
+		const result = newCalculateCrimping(data)
 		setCrimpingResult(result)
 	}, [])
 
@@ -203,11 +202,6 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 							label="Угол A (градусы)"
 							register={{...register('angle_a', basedValidateFormRule)}}
 							error={errors.angle_a?.message}
-						/>
-						<Input
-							label="Угол A на послед. операциях (градусы)"
-							register={{...register('angle_a_after_first', basedValidateFormRule)}}
-							error={errors.angle_a_after_first?.message}
 						/>
 						<Input
 							label="Угол B (градусы)"
