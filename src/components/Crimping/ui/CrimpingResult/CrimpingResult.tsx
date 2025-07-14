@@ -25,8 +25,6 @@ export const CrimpingResult = memo((props: CrimpingResultProps) => {
 			<VStack gap="12">
 				<Text title="Результат расчёта количества операций" weight="weight_bold" size="size_s"/>
 				<Text textPre text={`Количество операций: ${crimpingData.operationsCount}
-Предельный коэф. обжима: ${crimpingData.limit_coeff_of_crimping}
-Итоговый коэф. обжима: ${crimpingData.result_coeff_of_crimping}
 Коэф. деформации: ${crimpingData.degree_of_deformation}`}/>
 			</VStack>
 			<VStack gap="12" max>
@@ -41,10 +39,12 @@ export const CrimpingResult = memo((props: CrimpingResultProps) => {
 									  textPre
 									  text={`1. Параметры заготовки:
 Коэф. обжима: ${operation.coeff_of_crimping}
+Предельный коэф. обжима: ${operation.limit_coeff_of_crimping}
 Толщина кромки заготовки: ${operation.thin_of_cromk} мм
 Диаметр дульца: ${operation.diameter_dulca} мм
 Диаметр обжимного стержня: ${operation.diameter_of_crimping_rod} мм
-Угол альфа: ${operation.angle_a}
+Угол альфа: ${operation.angle_a} гр.
+Угол бета: ${operation.angle_b} гр.
 Высота ската: ${operation.skat_height} мм
 Радиус скругления: ${operation.circle_radius} мм
 

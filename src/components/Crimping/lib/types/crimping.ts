@@ -13,8 +13,7 @@ export interface CrimpingFormParams extends MechanicalDetailInfo {
     relative_uniform_contraction: number,        // Относительное равномерное сужение
     ramp_height: number,                         // Высота ската
     angle_a: number,                             // Угол альфа
-    angle_b: number,                             // Угол бэта
-    angle_a_after_first: number,                 // Угол альфа после 1-ой операции  
+    angle_b: number,                             // Угол бэта 
     coeff_of_stock: number                       // Коэф. запаса устойчивости
 }
 
@@ -23,6 +22,7 @@ export interface CrimpingCalculateOperationData {
     thin_of_cromk: number,                    // Толщина кромки заготовки
     diameter_dulca: number,                   // Диаметр дульца
     angle_a: number,                          // Угол альфа
+    angle_b: number,                          // Угол бета
     executive_diameter_of_matrix: number,     // Исполнительные размеры матрицы
     allowance_for_wear_of_matrix: number,     // Припуск за износ матрицы
     elastic_unloading: number,                // Упругая разгрузка
@@ -31,13 +31,12 @@ export interface CrimpingCalculateOperationData {
     median_diameter: number,                  // Диаметр в срединном сечении
     circle_radius: number,                    // Радиус скругления
     diameter_of_crimping_rod: number          // Диаметр обжимного стержня
-    tech_strength: number                     // Тех. сила
+    tech_strength: number,                    // Тех. сила
+    limit_coeff_of_crimping: number           // Предельный коэф. обжима
 }
 
 export interface CrimpingCalculateResult {
-	operationsCount: number,                      // Кол-во операций
-    degree_of_deformation: number,                // Коэф. деформации
-    result_coeff_of_crimping: number,             // Итоговый коэф. обжима
-	limit_coeff_of_crimping: number,              // Предельный коэф. обжима
-    operationsData: CrimpingCalculateOperationData[]
+	operationsCount: number,                             // Кол-во операций
+    degree_of_deformation: number,                       // Коэф. деформации
+    operationsData: CrimpingCalculateOperationData[]     // Данные по операциям
 }
