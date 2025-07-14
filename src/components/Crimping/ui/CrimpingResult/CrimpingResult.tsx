@@ -43,7 +43,8 @@ export const CrimpingResult = memo((props: CrimpingResultProps) => {
 Толщина кромки заготовки: ${operation.thin_of_cromk} мм
 Диаметр дульца: ${operation.diameter_dulca} мм
 Диаметр обжимного стержня: ${operation.diameter_of_crimping_rod} мм
-Угол альфа: ${operation.angle_a}
+Угол альфа: ${operation.angle_a} гр.
+Угол бета: ${operation.angle_b} гр.
 Высота ската: ${operation.skat_height} мм
 Радиус скругления: ${operation.circle_radius} мм
 
