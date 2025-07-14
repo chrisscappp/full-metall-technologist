@@ -25,31 +25,31 @@ interface CrimpingFormProps {
 	className?: string
 }
 
-const initialParams: CrimpingFormParams = {
-    up_init_diameter: 75,                        // Диаметр в.р.с
-    mid_init_diameter: 130,                      // Диаметр с.р.с
-	down_init_diameter: 145,                     // Диаметр н.р.с
-	up_init_thin: 2,                             // Толщина в.р.с
-    mid_init_thin: 3,                            // Толщина с.р.с
-	down_init_thin: 4,                           // Толщина н.р.с
-	allow_thin: 0.25,                            // Допуск на толщину
-    strength_limit: 300,                         // Предел прочности
-    yield_strength: 200,                         // Предел текучести
-    relative_uniform_contraction: 0.2,           // Относительное равномерное сужение
-    ramp_height: 25,                             // Высота ската
-    angle_a: 47,                                 // Угол альфа
-    angle_b: 1,                                  // Угол бэта
-	coeff_of_stock: 2,                           // Коэф. запаса устойчивости
-	material: DetailMaterialValue.STEEL_10,      // Материал 
-	operator_name: 'Вася',                       // Имя оператора
-	organization_name: '"ЗАО" БЕЩЕКИ',           // Организация
-	detail_name: 'Гильза мощная'                 // Наименование детали
-}
+// const initialParams: CrimpingFormParams = {
+//     up_init_diameter: 75,                        // Диаметр в.р.с
+//     mid_init_diameter: 130,                      // Диаметр с.р.с
+// 	down_init_diameter: 145,                     // Диаметр н.р.с
+// 	up_init_thin: 2,                             // Толщина в.р.с
+//     mid_init_thin: 3,                            // Толщина с.р.с
+// 	down_init_thin: 4,                           // Толщина н.р.с
+// 	allow_thin: 0.25,                            // Допуск на толщину
+//     strength_limit: 300,                         // Предел прочности
+//     yield_strength: 200,                         // Предел текучести
+//     relative_uniform_contraction: 0.2,           // Относительное равномерное сужение
+//     ramp_height: 25,                             // Высота ската
+//     angle_a: 47,                                 // Угол альфа
+//     angle_b: 1,                                  // Угол бэта
+// 	coeff_of_stock: 2,                           // Коэф. запаса устойчивости
+// 	material: DetailMaterialValue.STEEL_10,      // Материал 
+// 	operator_name: 'Вася',                       // Имя оператора
+// 	organization_name: '"ЗАО" БЕЩЕКИ',           // Организация
+// 	detail_name: 'Гильза мощная'                 // Наименование детали
+// }
 
 export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 	
 	const { register, handleSubmit, formState: { errors }, setValue, getValues, watch } = useForm<CrimpingFormParams>({
-		defaultValues: initialParams
+		defaultValues: { material: DetailMaterialValue.STEEL_10 }
 	})
 	const [crimpingResult, setCrimpingResult] = useState<CrimpingCalculateResult>()
 	const { onCopyText } = useCopyText()
