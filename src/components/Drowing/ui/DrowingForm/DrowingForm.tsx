@@ -26,11 +26,9 @@ interface DrowingFormProps {
 	className?: string
 }
 
-// const initialParams: TechnologistDrowingForm = {
+// const initialParams: DrowingFormParams = {
 // 	init_diameter: 160,            // Начальный диаметр
-// 	init_thickness: 15,      	   // Начальная толщина
 // 	fin_diameter: 91.8,            // Конечный диаметр
-// 	fin_thickness: 1.78,       	   // Конечная толщина
 // 	coefficient_of_stock: 1.2,     // Коэффициент запаса
 // 	fin_volume: 21000,             // Конечный объём
 // 	max_pull_first_op: 0.48,   	   // Предельный коэффициент вытяжки (ПКВ)
@@ -39,10 +37,14 @@ interface DrowingFormProps {
 // 	max_thin_subsequent_op: 0.5,   // ПКУ для последующих операций (если больше 1 вытяжки)
 // 	wall_thickness_ls: 1,   	   // Толщина стенки в нижнем сечении
 // 	wall_thickness_us: 0.5,   	   // Толщина стенки в верхнем сечении
+// 	wall_thickness_down: 1,
 // 	rounding_radius: 2,            // Радиус закругления
 // 	fin_height: 100,               // Высота на последней операции 
 // 	coefficient_of_friction: 1,     // Коэф. трения
-// 	material: DrowingMaterialValue.STEEL_10
+// 	material: DetailMaterialValue.STEEL_10,      // Материал 
+// 	operator_name: 'Вася',                       // Имя оператора
+// 	organization_name: '"ЗАО" БЕЩЕКИ',           // Организация
+// 	detail_name: 'Гильза мощная'                 // Наименование детали
 // }
 
 export const DrowingForm = memo(({ className }: DrowingFormProps) => {
