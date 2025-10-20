@@ -548,7 +548,7 @@ export const calculateDrawingOperationsDataV2 = (params: DrowingFormParams, oper
 
 		// Расчет технологических усилий при вытяжке с утонением
 		// Удельное усилие (q) (620 - заменить на соот МПа материала)
-		const specific_force = Number(((Math.pow(3, 1/2) / 2) * 620 * operations[0].degree_deformation_ls * (2.2 * Math.pow(0.99 - 1, 2) + (0.12 / 0.02))).toFixed(decimalPlacesCount))
+		const specific_force = Number(((Math.pow(3, 1/2) / 2) * 620 * degree_deformation_ls * (2.2 * Math.pow(0.99 - 1, 2) + (0.12 / 0.02))).toFixed(decimalPlacesCount))
 		// Площадь нижнего расчетного сечения пуансона (Fпв)
 		const lower_area_hub = Number(((3.14 * Math.pow(operations[i].outside_diameter - operations[i].inside_diameter_ls, 2)) / 4).toFixed(decimalPlacesCount))
 		// Сила деформирования (Р)
