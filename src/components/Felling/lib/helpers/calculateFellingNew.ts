@@ -2,9 +2,9 @@ import { decimalPlacesCount } from '@/utils/consts/calculate'
 import { FellingCalculateResult, FellingCalculateParams } from '../types/felling'
 import { Felling } from '../consts/felling'
 import { workingToolAllowanceCoeffs } from '@/utils/consts/workingToolAllowance'
-import { kvalitet6 } from '@/utils/functions/kvalitet'
-import { kgsToMegapascal } from '@/utils/functions/maths/toMegapascal'
-import { kilonewtonToKilogramms, tonneToKilonewton } from '@/utils/functions/maths/toKilonewton'
+import { kvalitet6 } from '@/utils/lib/kvalitet/kvalitet'
+import { kgsToMegapascal } from '@/utils/lib/maths/toMegapascal'
+import { kilonewtonToKilogramms, tonneToKilonewton } from '@/utils/lib/maths/toKilonewton'
 
 interface CalculateBridgesResult {
 	bridge: number,

@@ -1,6 +1,6 @@
 import { VStack } from '@/UI/Stack'
 import { Text } from '@/UI/Text/Text'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo } from 'react'
 import { CrimpingCalculateResult } from '../../lib/types/crimping'
 import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'

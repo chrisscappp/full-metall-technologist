@@ -1,4 +1,4 @@
-import { classNames, Mods } from '@/utils/functions/classNames'
+import { classNames, Mods } from '@/utils/lib/classNames/classNames'
 import cls from './ListBox.module.scss'
 import { ChangeEvent, memo, useMemo }  from 'react'
 import { HStack } from '../Stack'

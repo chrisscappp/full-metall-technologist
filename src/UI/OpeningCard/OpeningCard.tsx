@@ -1,4 +1,4 @@
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo, MouseEvent, ReactNode, useCallback, useState } from 'react'
 import cls from './OpeningCard.module.scss'
 import ArrowUpBlack from '@/assets/icons/arrow-up-black-64-64.svg'

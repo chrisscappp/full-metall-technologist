@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import cls from './Text.module.scss'
 
 type TextTheme = {

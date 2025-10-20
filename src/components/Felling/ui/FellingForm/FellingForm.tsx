@@ -1,5 +1,5 @@
 import { Card } from '@/UI/Card/Card'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo, useCallback, useState } from 'react'
 import cls from './FellingForm.module.scss'
 import { VStack } from '@/UI/Stack'
@@ -15,9 +15,9 @@ import { FellingResult } from '../FellingResult/FellingResult'
 import { calculateFellingV2 } from '../../lib/helpers/calculateFellingNew'
 import { fellingTabsConfig } from '../../lib/consts/fellingTabs'
 import { DetailMaterialValue, DetailMaterialValueType, SelectMaterial } from '@/components/SelectMaterial'
-import { getCurrentDate } from '@/utils/functions/getCurrentDate'
+import { getCurrentDate } from '@/utils/lib/getCurrentDate/getCurrentDate'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
-import { getCurrentMoscowTime } from '@/utils/functions/getCurrentMoscowTime'
+import { getCurrentMoscowTime } from '@/utils/lib/getCurrentMoscowTime/getCurrentMoscowTime'
 import { GenerateExcelReport } from '@/components/GenerateExcelReport'
 
 interface FellingFormProps {

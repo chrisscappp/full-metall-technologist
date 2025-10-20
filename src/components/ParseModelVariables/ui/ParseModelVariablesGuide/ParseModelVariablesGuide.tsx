@@ -1,6 +1,6 @@
 import { memo, MouseEvent, useCallback } from 'react'
 import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { ParseModelVariables } from '@/components/ParseModelVariables'
 import { Text } from '@/UI/Text/Text'
 import { HStack, VStack } from '@/UI/Stack'

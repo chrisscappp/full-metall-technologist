@@ -1,7 +1,7 @@
 import { TabPanel } from '@/components/TabPanel'
 import { memo } from 'react'
 import { drowingTabsConfig } from '../../lib/consts/drowing'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { VStack } from '@/UI/Stack'
 
 interface DrowingTabsProps {

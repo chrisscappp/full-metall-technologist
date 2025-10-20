@@ -1,6 +1,6 @@
 import { decimalPlacesCount } from '@/utils/consts/calculate'
 import { CrimpingCalculateOperationData, CrimpingCalculateResult, CrimpingFormParams } from '../types/crimping'
-import { ctg } from '@/utils/functions/maths/ctg'
+import { ctg } from '@/utils/lib/maths/ctg'
 
 type CalculateRelativeThinCoeffParams = Pick<CrimpingFormParams, 'coeff_of_stock' | 'angle_a' | 'angle_b'> & {
 	difference_walls: number
