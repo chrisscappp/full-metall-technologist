@@ -1,4 +1,4 @@
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo, ReactNode } from 'react'
 import cls from './Table.module.scss'
 

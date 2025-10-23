@@ -1,6 +1,6 @@
 import { CSSProperties, memo, ReactNode } from 'react'
 import cls from './Flex.module.scss'
-import { classNames, Mods } from '@/utils/functions/classNames'
+import { classNames, Mods } from '@/utils/lib/classNames/classNames'
 
 export type FlexJustify = 'between' | 'around' | 'evenly' | 'start' | 'center' | 'end'
 export type FlexAlign = 'start' | 'center' | 'end'

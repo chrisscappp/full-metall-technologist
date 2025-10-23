@@ -1,4 +1,4 @@
-import { classNames, Mods } from '@/utils/functions/classNames'
+import { classNames, Mods } from '@/utils/lib/classNames/classNames'
 import { ChangeEvent, FocusEvent, InputHTMLAttributes, memo, useEffect, useRef, useState } from 'react'
 import cls from './Input.module.scss'
 import { Text } from '../Text/Text'

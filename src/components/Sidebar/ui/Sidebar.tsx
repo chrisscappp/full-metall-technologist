@@ -1,4 +1,4 @@
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo } from 'react'
 import LogoLight from '@/assets/image/logo-light.png'
 import LogoDark from '@/assets/image/logo-dark.png'

@@ -1,8 +1,8 @@
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { memo, useCallback } from 'react'
 import { VStack } from '@/UI/Stack'
 import { Button } from '@/UI/Button/Button'
-import { truncateText } from '@/utils/functions/truncateText'
+import { truncateText } from '@/utils/lib/truncateText/truncateText'
 import { TabPanelItem } from '../lib/types/tabPanel'
 import cls from './TabPanel.module.scss'
 

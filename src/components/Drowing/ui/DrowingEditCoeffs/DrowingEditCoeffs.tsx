@@ -1,15 +1,15 @@
 import { memo, useCallback, useState } from 'react'
 import { CalculateOperationsCountResult } from '../../lib/types/drowing'
 import { HStack, VStack } from '@/UI/Stack'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { Button } from '@/UI/Button/Button'
 import { Text } from '@/UI/Text/Text'
-import { multiplyNumbers } from '@/utils/functions/multiplyNumbers'
+import { multiplyNumbers } from '@/utils/lib/multiplyNumbers/multiplyNumbers'
 import { EditCoeffInput } from './EditCoeffInput'
 import SuccessCoeffsIcon from '@/assets/icons/circle-success-green-64-64.svg'
 import UnsuccessCoeffsIcon from '@/assets/icons/circle-cross-red-64-64.svg'
 import cls from './DrowingEditCoeffs.module.scss'
-import { isIncreasingSequence } from '@/utils/functions/isIncreasingSequence'
+import { isIncreasingSequence } from '@/utils/lib/isIncreasingSequence/isIncreasingSequence'
 
 interface DrowingEditCoeffsProps {
 	className?: string,
