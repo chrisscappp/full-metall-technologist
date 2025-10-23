@@ -1,7 +1,7 @@
 import { TabPanel } from '@/components/TabPanel'
 import { memo } from 'react'
 import { fellingTabsConfig } from '../../lib/consts/fellingTabs'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { VStack } from '@/UI/Stack'
 
 interface FellingTabsProps {

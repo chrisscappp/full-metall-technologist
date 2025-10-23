@@ -2,7 +2,7 @@ import { VStack } from '@/UI/Stack'
 import { memo } from 'react'
 import { FellingCalculateResult } from '../../lib/types/felling'
 import { Text } from '@/UI/Text/Text'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 
 interface FellingResultProps {
 	className?: string,

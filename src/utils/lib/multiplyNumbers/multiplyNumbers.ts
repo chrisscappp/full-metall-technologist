@@ -1,4 +1,4 @@
-import { decimalPlacesCount } from '../consts/calculate'
+import { decimalPlacesCount } from '../../consts/calculate'
 
 export const multiplyNumbers = (numbers: number[], placesCount: number = decimalPlacesCount) => {
 	if (numbers.length === 0) {

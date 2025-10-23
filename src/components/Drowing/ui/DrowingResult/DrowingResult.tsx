@@ -3,7 +3,7 @@ import { memo } from 'react'
 import cls from './DrowingResult.module.scss'
 import { Text } from '@/UI/Text/Text'
 import { DrowingOperationDataV2 } from '../../lib/types/drowing'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'
 import { drowingTabsConfig } from '../../lib/consts/drowing'
 

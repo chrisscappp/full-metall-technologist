@@ -1,4 +1,4 @@
-import { Mods, classNames } from '@/utils/functions/classNames'
+import { Mods, classNames } from '@/utils/lib/classNames/classNames'
 import cls from './ThemeSwitcher.module.scss'
 import { CSSProperties, memo, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useTheme } from '@/utils/hooks/useTheme'

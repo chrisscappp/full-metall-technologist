@@ -1,7 +1,7 @@
 import { HStack, VStack } from '@/UI/Stack'
 import { memo, useCallback, useState } from 'react'
 import { CalculateOperationsCountResult } from '../../lib/types/drowing'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { Text } from '@/UI/Text/Text'
 import cls from './DrowingCountOperations.module.scss'
 import { Button } from '@/UI/Button/Button'

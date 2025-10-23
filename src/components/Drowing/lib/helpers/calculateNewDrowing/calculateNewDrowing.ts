@@ -1,11 +1,11 @@
-import { multiplyNumbers } from '@/utils/functions/multiplyNumbers'
-import { CalculateOperationsCountResult, DrowingOperationDataV2, DrowingFormParams } from '../types/drowing'
+import { multiplyNumbers } from '@/utils/lib/multiplyNumbers/multiplyNumbers'
+import { CalculateOperationsCountResult, DrowingOperationDataV2, DrowingFormParams } from '../../types/drowing'
 import { decimalPlacesCount } from '@/utils/consts/calculate'
-import { kvalitet6 } from '@/utils/functions/kvalitet'
-import { findOptimalPairReplacement } from './findOptionalPairReplacement'
-import { newtonToKilonewton } from '@/utils/functions/maths/toKilonewton'
+import { kvalitet6 } from '@/utils/lib/kvalitet/kvalitet'
+import { findOptimalPairReplacement } from '../findOptionalPairReplacement'
+import { newtonToKilonewton } from '@/utils/lib/maths/toKilonewton'
 
-const calculateOperationsCount = (params: DrowingFormParams) => {
+export const calculateOperationsCount = (params: DrowingFormParams) => {
 	const { 
 		fin_diameter, 
 		init_diameter, 
@@ -231,7 +231,7 @@ const calculateOperationsCount = (params: DrowingFormParams) => {
 // 	console.log('Коэф. утонения после балансировки: ', thinCoeffArr)
 // }
 
-const normalizeOpertionsV2 = (opertionsResult: CalculateOperationsCountResult, maxDrowingCoeff: number, maxThinCoeff: number) => {
+export const normalizeOpertionsV2 = (opertionsResult: CalculateOperationsCountResult, maxDrowingCoeff: number, maxThinCoeff: number) => {
 	const { 
 		sumDrowingCoeff, 
 		sumThinCoeff, 
@@ -370,9 +370,8 @@ const normalizeOpertionsV2 = (opertionsResult: CalculateOperationsCountResult, m
 export const calculateDrawingOperationsCountV2 = (params: DrowingFormParams) => {
 	const operationsResult = calculateOperationsCount(params)
 	//normalizeOpertions(operationsResult, Number(params.max_pull_subsequent_op), Number(params.max_thin_subsequent_op))
-
 	normalizeOpertionsV2(operationsResult, Number(params.max_pull_subsequent_op), Number(params.max_thin_subsequent_op))
-	console.log('normalizeOpertionsV2', operationsResult)
+	//console.log('normalizeOpertionsV2', operationsResult)
 	return operationsResult
 }
 
@@ -548,7 +547,7 @@ export const calculateDrawingOperationsDataV2 = (params: DrowingFormParams, oper
 
 		// Расчет технологических усилий при вытяжке с утонением
 		// Удельное усилие (q) (620 - заменить на соот МПа материала)
-		const specific_force = Number(((Math.pow(3, 1/2) / 2) * 620 * operations[0].degree_deformation_ls * (2.2 * Math.pow(0.99 - 1, 2) + (0.12 / 0.02))).toFixed(decimalPlacesCount))
+		const specific_force = Number(((Math.pow(3, 1/2) / 2) * 620 * degree_deformation_ls * (2.2 * Math.pow(0.99 - 1, 2) + (0.12 / 0.02))).toFixed(decimalPlacesCount))
 		// Площадь нижнего расчетного сечения пуансона (Fпв)
 		const lower_area_hub = Number(((3.14 * Math.pow(operations[i].outside_diameter - operations[i].inside_diameter_ls, 2)) / 4).toFixed(decimalPlacesCount))
 		// Сила деформирования (Р)

@@ -1,4 +1,4 @@
-import { classNames, Mods } from '@/utils/functions/classNames'
+import { classNames, Mods } from '@/utils/lib/classNames/classNames'
 import { ButtonHTMLAttributes, ReactNode, memo } from 'react'
 import cls from './Button.module.scss'
 

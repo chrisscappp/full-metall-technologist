@@ -1,6 +1,6 @@
 import { memo, ReactNode } from 'react'
 import cls from './Navbar.module.scss'
-import { classNames } from '@/utils/functions/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { Text } from '@/UI/Text/Text'
 import { HStack } from '@/UI/Stack'
