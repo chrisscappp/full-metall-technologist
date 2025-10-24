@@ -3,12 +3,17 @@
 @use "./themes/dark.scss";
 @use "./variables/global.scss";
 
-.app {
+.app,
+.sb-show-main {
 	display: flex;
 	background: var(--bg-color);
 	min-height: 100vh;
 	font-weight: normal;
 	font-family: 'Inter-Regular', sans-serif;
+}
+
+.sb-show-main {
+	padding: 20px 30px !important;
 }
 
 @font-face {

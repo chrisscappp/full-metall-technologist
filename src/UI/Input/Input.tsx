@@ -64,7 +64,7 @@ export const Input = memo((props: InputProps) => {
 	}
 
 	const onFocus = () => {
-		setIsBlur(true)
+		if (!readonly) setIsBlur(true)
 	}
 
 	const onBlurDefault = (e: FocusEvent<HTMLInputElement>) => {

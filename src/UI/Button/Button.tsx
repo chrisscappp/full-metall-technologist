@@ -5,7 +5,6 @@ import cls from './Button.module.scss'
 type ButtonTheme = {
 	clear: 'clear',
 	clearInverted: 'clearInverted',
-	approve: 'approve',
 	error: 'error',
 	outline: 'outline',
 	background: 'background',
@@ -15,7 +14,6 @@ type ButtonTheme = {
 type ButtonSize = {
 	size_s: 'size_s',
 	size_m: 'size_m',
-	size_ml:  'size_ml',
 	size_l: 'size_l',
 	size_xl: 'size_xl'
 }
