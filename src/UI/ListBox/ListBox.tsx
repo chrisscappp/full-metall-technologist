@@ -55,7 +55,7 @@ const ListBoxComponent = <T extends string>(props: ListBoxProps<T>) => {
 				</span>)
 			}
 			<select
-				className={cls.select}
+				className={classNames(cls.select, {}, [readonly ? cls.readonly : undefined])}
 				value={value}
 				onChange={onChangeHandler}
 				disabled={readonly}
