@@ -29,12 +29,6 @@
 	outline: none;
 }
 
-.approve {
-	background: var(--button-approve);
-	border: none;
-	color: var(--text-secondary-color);
-}
-
 .error {
 	border: 1px solid var(--red-light);
 	background: none;
@@ -89,6 +83,7 @@
 
 .disabled {
 	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 .hovered:hover {
