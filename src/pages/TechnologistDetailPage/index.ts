@@ -1,1 +1,1 @@
-export { TechnologistDetailPage } from './ui/TechnologistDetailPage'
+export { TechnologistDetailPageAsync as TechnologistDetailPage } from './ui/TechnologistDetailPage.async'

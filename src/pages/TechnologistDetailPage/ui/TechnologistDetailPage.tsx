@@ -15,11 +15,12 @@ import { DrowingForm, DrowingTabs } from '@/components/Drowing'
 import { FellingForm, FellingTabs } from '@/components/Felling'
 import { CrimpingForm, CrimpingTabs } from '@/components/Crimping'
 
-export const TechnologistDetailPage = memo(() => {
+ const TechnologistDetailPage = memo(() => {
 	
 	const { id } = useParams<{ id: string }>()
 	const navigate = useNavigate()
 	const { isLightTheme } = useTheme()
+	// так лучше не делать. убрать. переписать сайд бар
 	const { onMountContent, onUnmountContent } = useSidebar()
 	const calculationMethod = technologistList.find(item => item.id === id)
 
@@ -90,3 +91,5 @@ export const TechnologistDetailPage = memo(() => {
 		</Page>
 	)
 })
+
+export default TechnologistDetailPage
