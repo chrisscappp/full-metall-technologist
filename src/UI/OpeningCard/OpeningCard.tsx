@@ -31,9 +31,7 @@ export const OpeningCard = memo((props: OpeningCardProps) => {
   	}, [isOpened])
 
 	return (
-		<div
-			className={classNames(cls.OpeningCard, {}, [className])}
-		>
+		<div className={classNames(cls.OpeningCard, {}, [className])}>
 			<details open={isOpened}>
 				<summary className={classNames(cls.main, {[cls.active]: Boolean(additionalContent)})} onClick={onChangeIsOpened}>
           			{mainContent}

@@ -1,9 +1,15 @@
+.DrowingCountOperations {
+	width: 100%;
+	padding-top: 24px;
+	border-top: 1px solid var(--border-light);
+}
+
 .drawingCoeffs {
 	margin-top: 8px;
 }
 
 .hint {
 	cursor: pointer;
-	width: 56px;
-	height: 56px;
+	width: 32px;
+	height: 32px;
 }

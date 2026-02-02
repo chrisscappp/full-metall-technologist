@@ -28,6 +28,7 @@
 	right: 0;
 	bottom: 0;
 	background: var(--theme-switcher-bg);
+	border: 2px solid var(--border);
 	transition: .4s;
 }
 
@@ -37,8 +38,8 @@
 	content: "";
 	height: 30px;
 	width: 30px;
-	left: -2px;
-	top: 0px;
+	left: -4px;
+	top: -1px;
 	background-color: var(--theme-switcher-label);
 	transition: .4s;
 }
@@ -49,10 +50,10 @@
 
 .bgSwithed {
 	background: none;
-	border: 3px solid var(--theme-switcher-bg);
+	border: 2px solid var(--theme-switcher-bg);
 	position: absolute;
 	left: -4px;
-	bottom: -4px;
+	bottom: -2px;
 }
 
 .round {

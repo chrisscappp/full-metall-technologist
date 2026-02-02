@@ -1,10 +1,11 @@
+import { PageLoader } from '@/components/PageLoader'
 import { routeConfig } from '@/utils/config/router/routerConfig'
 import { Suspense, memo, useCallback } from 'react'
 import { Route, Routes, RouteProps } from 'react-router-dom'
 
 const AppRouter = () => {
 	
-	const renderWithWrapper = useCallback((route: RouteProps) => {
+	const renderRoute = useCallback((route: RouteProps) => {
 		return (
 			<Route
 				key={route.path}
@@ -15,9 +16,9 @@ const AppRouter = () => {
 	}, [])
 
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<PageLoader/>}>
 			<Routes>
-				{Object.values(routeConfig).map(renderWithWrapper)}
+				{Object.values(routeConfig).map(renderRoute)}
 			</Routes>
 		</Suspense>
 	)

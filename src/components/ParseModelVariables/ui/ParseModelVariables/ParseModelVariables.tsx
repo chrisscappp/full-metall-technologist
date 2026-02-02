@@ -1,13 +1,9 @@
 import { Button } from '@/UI/Button/Button'
 import { HStack } from '@/UI/Stack'
 import { memo, MouseEvent, useCallback, useEffect, useState } from 'react'
-import UploadWhite from '@/assets/icons/upload-white-64-64.svg'
-import UploadDark from '@/assets/icons/upload-black-64-64.svg'
-import { useTheme } from '@/utils/hooks/useTheme'
 import { invoke } from '@tauri-apps/api/core'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { open } from '@tauri-apps/plugin-dialog'
-import cls from './ParseModelVariables.module.scss'
 import { classNames } from '@/utils/lib/classNames/classNames'
 import { ParseDrowingModelResult } from '../../lib/types/parseDrowingModel'
 import { Loader } from '@/UI/Loader/Loader'
@@ -22,7 +18,6 @@ const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariabl
 	
 	const { className, onSetParsedValues } = props
 
-	const { isLightTheme } = useTheme()
 	const [success, setSuccess] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState('')
@@ -66,10 +61,11 @@ const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariabl
 	}, [success])
 
 	return (
-		<HStack className={classNames('', {}, [className])} gap="20">
-			<Button onClick={onPickFile}>
-				Загрузить модель <img src={isLightTheme ? UploadWhite : UploadDark} className={cls.img}/>
+		<HStack className={classNames('', {}, [className])} gap="16" align="center">
+			<Button onClick={onPickFile} theme="backgroundInverted">
+				Загрузить модель
 			</Button>
+			<Text text="Поддерживаемые форматы: .m3d, .cdw, .spw" size="size_s" theme="tertiary"/>
 			{success && <Text text={success}/>}
 			{error && <Text text={error} theme="error"/>}
 			{isLoading && <Loader size="loader_s"/>}

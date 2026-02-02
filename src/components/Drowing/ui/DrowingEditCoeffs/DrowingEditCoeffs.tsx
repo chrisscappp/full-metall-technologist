@@ -68,11 +68,11 @@ export const DrowingEditCoeffs = memo((props: DrowingEditCoeffsProps) => {
 
 	return (
 		<VStack className={classNames('', {}, [className])} gap="16">
-			<Text title="Ручной ввод коэффициентов" size="size_s" weight="weight_bold"/>
+			<Text title="Ручной ввод коэффициентов" size="size_s"/>
 			<VStack gap="8">
-				<Text text="Вытяжка"/>
-				<Text text={`Текущее значение суммарного коэффициента = ${currentDrowingTotalCoeff}`}/>
-				<HStack gap='8'>
+				<Text title="ВЫТЯЖКА" size="size_sm" theme="secondary"/>
+				<Text text={`Текущее значение суммарного коэффициента = ${currentDrowingTotalCoeff}`} size="size_s"/>
+				<HStack gap='8' align="center">
 					<img src={isCorrectDrowingCoeffs ? SuccessCoeffsIcon : UnsuccessCoeffsIcon} className={cls.icon}/>
 					{copyOperationsResult.drowingCoeff.map((num, index) => (
 						<>
@@ -87,9 +87,9 @@ export const DrowingEditCoeffs = memo((props: DrowingEditCoeffsProps) => {
 				</HStack>
 			</VStack>
 			<VStack gap="8">
-				<Text text="Утонение"/>
-				<Text text={`Текущее значение суммарного коэффициента = ${currentThinTotalCoeff}`}/>
-				<HStack gap='8'>
+				<Text title="УТОНЕНИЕ" size="size_sm" theme="secondary"/>
+				<Text text={`Текущее значение суммарного коэффициента = ${currentThinTotalCoeff}`} size="size_s"/>
+				<HStack gap='8' align="center">
 					<img src={isCorrectThinCoeffs ? SuccessCoeffsIcon : UnsuccessCoeffsIcon} className={cls.icon}/>
 					{copyOperationsResult.thinCoeff.map((num, index) => (
 						<EditCoeffInput

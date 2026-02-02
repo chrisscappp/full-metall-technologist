@@ -1,17 +1,34 @@
 import { MainPage } from '@/pages/MainPage'
-import { AppRoutes, getTechnologistDetailRoute, getRouteMain } from './router'
+import { AppRoutes, getRouteMain, getRoutePersonal, getPersonalComputingRoute, getPersonalHistoryRoute } from './router'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { RouteProps } from 'react-router-dom'
-import { TechnologistDetailPage } from '@/pages/TechnologistDetailPage'
+import { PersonalComputingPage } from '@/pages/PersonalComputingPage'
+import { PersonalPage } from '@/pages/PersonalPage'
+import { ReactNode } from 'react'
+import { PersonalHistoryPage } from '@/pages/PersonalHistoryPage'
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
+type RoutePropsType = RouteProps & {
+	authOnly?: boolean,
+	layout?: ReactNode
+}
+
+export const routeConfig: Record<AppRoutes, RoutePropsType> = {
 	[AppRoutes.MAIN]: {
 		path: getRouteMain(),
-		element: <MainPage/>
+		element: <MainPage/>,
 	},
-	[AppRoutes.TECHNOLOGIST_DETAIL]: {
-		path: getTechnologistDetailRoute(':id'),
-		element: <TechnologistDetailPage/>
+	// Personal
+	[AppRoutes.PERSONAL]: {
+		path: getRoutePersonal(':id'),
+		element: <PersonalPage/>
+	},
+	[AppRoutes.PESRONAL_COMPUTING]: {
+		path: getPersonalComputingRoute(':id'),
+		element: <PersonalComputingPage/>
+	},
+	[AppRoutes.PERSONAL_HISTORY]: {
+		path: getPersonalHistoryRoute(),
+		element: <PersonalHistoryPage/>
 	},
 	//last
 	[AppRoutes.NOT_FOUND]: {

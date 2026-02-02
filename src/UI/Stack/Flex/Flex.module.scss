@@ -47,33 +47,54 @@
 }
 
 .gap4 {
-	gap: 4px
+	gap: var(--gap-4);
 }
 
 .gap8 {
-	gap: 8px
+	gap: var(--gap-8);
 }
 
 .gap12 {
-	gap: 12px
+	gap: var(--gap-12);
 }
 
 .gap16 {
-	gap: 16px
+	gap: var(--gap-16);
 }
 
 .gap20 {
-	gap: 20px
+	gap: var(--gap-20);
+}
+
+.gap24 {
+	gap: var(--gap-24);
+}
+
+.gap28 {
+	gap: var(--gap-28);
 }
 
 .gap32 {
-	gap: 32px
+	gap: var(--gap-32);
+}
+
+.gap36 {
+	gap: var(--gap-36);
+}
+
+.gap40 {
+	gap: var(--gap-40);
 }
 
 .gap64 {
-	gap: 64px
+	gap: var(--gap-64);
 }
 
 .max {
 	width: 100%;
+}
+
+.flexWrap {
+	flex-wrap: wrap;
+	flex-direction: row;
 }
