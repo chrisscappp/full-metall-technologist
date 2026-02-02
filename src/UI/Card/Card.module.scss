@@ -1,7 +1,17 @@
 .Card {
 	width: 100%;
-	padding: 16px 24px;
-	background: var(--card-bg);
-	border-radius: 18px;
-	box-shadow: 4px 4px 14px 0px rgba(34, 60, 80, 0.1);
+	padding: var(--padding-l);
+	background: var(--bg-surface);
+	border-radius: var(--radius-m);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow-s);
+}
+
+.hovered {
+	cursor: pointer;
+	transition: all 0.2s;
+	&:hover {
+		border-color: var(--accent);
+		box-shadow: var(--shadow-m);
+	}
 }

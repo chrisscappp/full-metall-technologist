@@ -59,7 +59,7 @@ export const GenerateExcelReport = memo(<T extends object>(props: GenerateExcelR
 
 	return (
 		<HStack className={classNames('', {}, [className])} gap="12" max>
-			<Button onClick={onSaveToExcel}>
+			<Button onClick={onSaveToExcel} theme="outline">
 				Сохранить в Excel
 			</Button>
 			{isLoading && <Loader/>}

@@ -1,31 +1,46 @@
 .app_light_theme {
-	--bg-color: #fff;
-	--inverted-bg-color: #131313;
+	// Background
+	--bg-primary: #fff;
+	--inverted-bg-primary: #000;
 
-	--primary-text-color: #131313;
-	--secondary-text-color: #fff;
+	--bg-secondary: #f5f5f7;
+	--inverted-bg-secondary: #86868b;
+
+	--bg-tertiary: #e5e5ea;
+	--inverted-bg-tertiary: #c6c6cc;
+
+	--bg-surface: #f8f8fa;
+	--inverted-bg-surface: #515154; // см дарк тему для инвертерд + наоборот в дарк
+
+	// Text
+	--primary-text-color: #1d1d1f;
+	--secondary-text-color: #515154;
+	--tertiary-text-color: #86868b;
 
 	--inverted-primary-text-color: #fff;
-	--inverted-secondary-text-color: #131313;
+	--inverted-secondary-text-color: #1d1d1f;
+	--inverted-tertiary-text-color: #515154;
+
+	// Border
+	--border: #d1d1d6;
+	--border-light: #e5e5ea;
+	--accent: #8e8e93;
+	--accent-hover: #717176;
 
 	// Button
 	--button-primary: #2A8CFF;
 	--button-hovered-text: #cacaca;
 
 	// Input
-	--input-bg-color: #efefef;
-	--input-focused-color: #2a2aff;
+	--input-bg-color: #fff;
 
 	// Theme Switcher
-	--theme-switcher-bg: #131313;
+	--theme-switcher-bg: #e5e5ea;
 	--theme-switcher-label: #fff;
-
-	// Sidebar
-	--sidebar-bg: rgb(0, 38, 255); 
-
-	// Card
-	--card-bg: #ffffff;
 
 	// Loader
 	--loader-color: rgb(0, 38, 255);
+
+	// Sidebar
+	--active-item: rgba(0, 0, 0, 0.04);
 }

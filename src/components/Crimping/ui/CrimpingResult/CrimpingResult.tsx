@@ -5,7 +5,6 @@ import { memo } from 'react'
 import { CrimpingCalculateResult } from '../../lib/types/crimping'
 import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'
 import cls from './CrimpingResult.module.scss'
-import { crimpingTabsConfig } from '../../lib/consts/crimpingTabs'
 
 interface CrimpingResultProps {
 	className?: string,
@@ -20,23 +19,32 @@ export const CrimpingResult = memo((props: CrimpingResultProps) => {
 	} = props
 	
 	return (
-		<VStack className={classNames('', {}, [className])} gap="32">
-			<Text title="Результат" weight="weight_bold"/>
+		<VStack className={classNames(cls.CrimpingResult, {}, [className])} gap="32" max>
+			<Text title="Результат" size="size_l"/>
 			<VStack gap="12">
-				<Text title="Результат расчёта количества операций" weight="weight_bold" size="size_s"/>
-				<Text textPre text={`Количество операций: ${crimpingData.operationsCount}
+				<Text title="Результат расчёта количества операций" size="size_s"/>
+				<Text textPre size="size_s" text={`Количество операций: ${crimpingData.operationsCount}
 Коэф. деформации: ${crimpingData.degree_of_deformation}`}/>
 			</VStack>
-			<VStack gap="12" max>
-				<Text title="Данные по операциям" weight="weight_bold" size="size_s"/>
+			<VStack className={cls.operations} gap="32" max>
+				<VStack gap="8" max>
+					<Text title="Данные по операциям" size="size_s"/>
+					<Text
+						text="Полный расчет, а также генерация Excel-отчета"
+						theme="secondary"
+						size="size_s"
+					/>
+				</VStack>
+				<VStack max gap='16'>
 					{crimpingData.operationsData.map((operation, index) => (
 						<OpeningCard
 							className={cls.operation}
 							key={`operation-${index}`}
-							mainContent={<Text className={cls.operationTitle} text={`Операция №${index + 1}`} weight="weight_bold"/>}
+							mainContent={<Text title={`Операция №${index + 1}`} size="size_s"/>}
 							additionalContent={
 								<Text
 									  textPre
+									  size="size_s"
 									  text={`1. Параметры заготовки:
 Коэф. обжима: ${operation.coeff_of_crimping}
 Предельный коэф. обжима: ${operation.limit_coeff_of_crimping}
@@ -59,8 +67,8 @@ export const CrimpingResult = memo((props: CrimpingResultProps) => {
 							  }
 						/>
 					))}
+				</VStack>
 			</VStack>
-			<div id={crimpingTabsConfig.results.id} />
 		</VStack>
 	)
 })

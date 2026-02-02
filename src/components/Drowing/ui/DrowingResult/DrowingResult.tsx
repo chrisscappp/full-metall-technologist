@@ -1,11 +1,9 @@
 import { VStack } from '@/UI/Stack'
 import { memo } from 'react'
-import cls from './DrowingResult.module.scss'
 import { Text } from '@/UI/Text/Text'
 import { DrowingOperationDataV2 } from '../../lib/types/drowing'
 import { classNames } from '@/utils/lib/classNames/classNames'
 import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'
-import { drowingTabsConfig } from '../../lib/consts/drowing'
 
 interface DrowingResultProps {
 	className?: string,
@@ -20,14 +18,20 @@ export const DrowingResult = memo((props: DrowingResultProps) => {
 	} = props
 	
 	return (
-    	<VStack className={classNames('', {}, [className])} gap="12">
-			<Text title="Данные по операциям" weight="weight_bold" size="size_s"/>
+    	<VStack className={classNames('', {}, [className])} gap="32" max>
+			<VStack gap="8" max>
+				<Text title="Данные по операциям" size="size_l"/>
+				<Text
+					text="Полный расчет, а также генерация Excel-отчета"
+					theme="secondary"
+					size="size_s"
+				/>
+			</VStack>
 			<VStack max gap='16'>
           		{result.map((operation, index) => (
             		<OpeningCard
-              			className={cls.operation}
               			key={`operation-${index}`}
-              			mainContent={<Text className={cls.operationTitle} text={`Операция №${index + 1} ${index === 0 ? '(свертка)' : ''}`} weight="weight_bold"/>}
+              			mainContent={<Text title={`Операция №${index + 1} ${index === 0 ? '(свертка)' : ''}`} size="size_s"/>}
               			additionalContent={
                 			<Text
                   				textPre
@@ -65,12 +69,12 @@ export const DrowingResult = memo((props: DrowingResultProps) => {
 Сила деформирования: ${operation.deformation_power} кН
 Величина усилия снятия заготовки с пуансона: ${operation.amount_of_effort_hub} кгс/мм2
 								`}
-                			/>
+                				size="size_s"
+							/>
               			}
             		/>
           		))}
         	</VStack>
-			<div id={drowingTabsConfig.results.id} />
     	</VStack>
   	)
 })

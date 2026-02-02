@@ -9,8 +9,8 @@ interface PageProps {
 
 export const Page = memo(({ children, className }: PageProps) => {
 	return (
-		<article className={classNames(cls.Page, {}, [className])}>
+		<div className={classNames(cls.Page, {}, [className])}>
 			{children}
-		</article>
+		</div>
 	)
 })

@@ -17,9 +17,19 @@ export const FellingResult = memo((props: FellingResultProps) => {
 	} = props
 	
 	return (
-		<VStack className={classNames('', {}, [className])} gap="12">
-			<Text title="Результат" weight="weight_bold" />
-			<Text text={
+		<VStack className={classNames('', {}, [className])} gap="32">
+			<VStack gap="8" max>
+				<Text title="Результат" size="size_l"/>
+				<Text
+					text="Полный расчет, а также генерация Excel-отчета"
+					theme="secondary"
+					size="size_s"
+				/>
+			</VStack>
+			<Text 
+				textPre
+				size="size_s"
+				text={
 `1. Геометрич. параметры
 Шаг раскроя: ${result?.step} мм
 Рекомендуемая ширина ленты: ${result?.width} мм
@@ -48,7 +58,7 @@ export const FellingResult = memo((props: FellingResultProps) => {
 Напряжение сжатия в опасном сечении: ${result?.compressionInDangerousSection} МПа
 Напряжение от изгиба в месте крепления: ${result?.compressionInBendingPoint} МПа
 Напряжение изгиба матрицы: ${result?.matrixBendingStress} МПа
-Растягивающее напряжение матрицы: ${result?.matrixGapStress} МПа`} textPre/>
+Растягивающее напряжение матрицы: ${result?.matrixGapStress} МПа`}/>
 		</VStack>
 	)
 })

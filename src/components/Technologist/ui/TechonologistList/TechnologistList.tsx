@@ -1,4 +1,4 @@
-import { VStack } from '@/UI/Stack'
+import { HStack } from '@/UI/Stack'
 import { memo, useMemo } from 'react'
 import { technologistList } from '../../lib/consts/list'
 import { TechnologistListItem } from '../TechnologistListItem/TechnologistListItem'
@@ -19,8 +19,8 @@ export const TechnologistList = memo(({ className }: TechnologistListProps) => {
 	}, [])
 
 	return (
-		<VStack className={className} gap='16' max>
+		<HStack className={className} gap='20' max>
 			{list}
-		</VStack>
+		</HStack>
 	)
 })

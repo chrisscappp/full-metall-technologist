@@ -5,8 +5,10 @@ import cls from './Text.module.scss'
 type TextTheme = {
 	primary: 'primary',
 	secondary: 'secondary',
+	tertiary: 'tertiary',
 	invertedPrimary: 'invertedPrimary',
 	invertedSecondary: 'invertedSecondary',
+	invertedTertiary: 'invertedTertiary',
 	error: 'error'
 }
 
@@ -17,6 +19,7 @@ type TextAlign = {
 }
 
 type TextSize = {
+	size_sm: 'size_sm',
 	size_s: 'size_s',
 	size_m: 'size_m',
 	size_l: 'size_l',
@@ -37,7 +40,8 @@ interface TextProps {
 	align?: keyof TextAlign,
 	size?: keyof TextSize,
 	weight?: keyof TextWeight,
-	textPre?: boolean
+	textPre?: boolean,
+	upperCase?: boolean
 }
 
 export const Text = memo((props: TextProps) => {
@@ -51,7 +55,8 @@ export const Text = memo((props: TextProps) => {
 		align='left',
 		size='size_m',
 		weight='normal',
-		textPre=false
+		textPre=false,
+		upperCase=false
 	} = props
 
 	const mods = {
@@ -59,7 +64,8 @@ export const Text = memo((props: TextProps) => {
 		[cls[align]]: align,
 		[cls[size]]: true,
 		[cls[weight]]: true,
-		[cls.textPre]: textPre
+		[cls.textPre]: textPre,
+		[cls.upper]: upperCase
 	}
 
 	return (
@@ -68,9 +74,9 @@ export const Text = memo((props: TextProps) => {
 			id={id}
 		>
 			{title && (
-				<p className={cls.title}>
+				<h1 className={cls.title}>
 					{title}
-				</p>
+				</h1>
 			)}
 			{text && (
 				<p className={cls.text}>

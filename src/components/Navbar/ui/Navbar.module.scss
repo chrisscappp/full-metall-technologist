@@ -1,6 +1,17 @@
 .Navbar {
-	background: var(--sidebar-bg);
-	padding: 16px 30px;
-	border-radius: 18px;
-	box-shadow: 4px 4px 14px 0px rgba(34, 60, 80, 0.31);
+	width: 100%;
+	background: var(--bg-tertiary);
+	border-bottom: 1px solid var(--border);
+	//height: var(--navbar-height);
+	padding: 32px;
+	flex-shrink: 0;
+	//position: fixed;
+	z-index: var(--navbar-zindex);
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: red;
 }

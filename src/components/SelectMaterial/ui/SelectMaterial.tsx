@@ -64,7 +64,7 @@ export const SelectMaterial = memo((props: SelectMaterialProps) => {
 	return (
 		<VStack className={className} gap='12' max>
 			<ListBox<DetailMaterialValue>
-				label="Материал:"
+				label="Материал"
 				options={materialOptions}	
 				value={listBoxValue}
 				onChange={onChangeListBoxMaterial}			

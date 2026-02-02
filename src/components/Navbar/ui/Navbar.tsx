@@ -1,32 +1,93 @@
-import { memo, ReactNode } from 'react'
+import { memo } from 'react'
 import cls from './Navbar.module.scss'
 import { classNames } from '@/utils/lib/classNames/classNames'
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { Text } from '@/UI/Text/Text'
-import { HStack } from '@/UI/Stack'
+import { HStack, VStack } from '@/UI/Stack'
 
 interface NavbarProps {
 	className?: string,
-	title?: string,
-	content?: ReactNode
 }
 
-export const Navbar = memo(({ className, title, content }: NavbarProps) => {
+// нужны будут разные состояния нав бара в зависимости от маршрута в приложении
+export const Navbar = memo(({ className }: NavbarProps) => {
 	return (
-		<HStack 
-			className={classNames(cls.Navbar, {}, [className])} 
-			max 
-			gap='16'
-			justify='between'
-		>
-			<HStack gap='16'>
-				{content}
-				<Text
-					title={title}
-					theme="secondary"
-				/>
+		<nav className={classNames(cls.Navbar, {}, [className])}>
+			<HStack 
+				max 
+				justify='between'
+				align="center"
+			>
+				<VStack gap="8">
+					<Text
+						title="Технолог"
+						weight="weight_bold"
+					/>
+					<Text
+						text="Технологические расчеты"
+						theme="tertiary"
+					/>
+				</VStack>
+				<HStack gap="40">
+					<VStack gap="8">
+						<Text
+							text="57"
+							weight="weight_bold"
+						/>
+						<Text
+							text="ВСЕГО РАСЧЕТОВ"
+							size="size_s"
+							theme="tertiary"
+						/>
+					</VStack>
+					<VStack gap="8">
+						<Text
+							text="3"
+							weight="weight_bold"
+						/>
+						<Text
+							text="СЕГОДНЯ"
+							size="size_s"
+							theme="tertiary"
+						/>
+					</VStack>
+					<VStack gap="8">
+						<Text
+							text="12"
+							weight="weight_bold"
+						/>
+						<Text
+							text="ЗА НЕДЕЛЮ"
+							size="size_s"
+							theme="tertiary"
+						/>
+					</VStack>
+					<VStack gap="8">
+						<Text
+							text="96%"
+							weight="weight_bold"
+						/>
+						<Text
+							text="ТОЧНОСТЬ"
+							size="size_s"
+							theme="tertiary"
+						/>
+					</VStack>
+				</HStack>
+				<HStack gap="20" align="center">
+					<VStack gap="8">
+						<Text
+							text="Шаненков А.К."
+							weight="weight_bold"
+						/>
+						<Text
+							text="АЛКАШ"
+							size="size_s"
+							theme="tertiary"
+						/>
+					</VStack>
+					<div className={cls.avatar}/>
+				</HStack>
 			</HStack>
-			<ThemeSwitcher/>
-		</HStack>
+		</nav>
 	)
 })

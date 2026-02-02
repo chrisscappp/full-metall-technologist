@@ -1,8 +1,20 @@
-.textPre {
+.text,
+.title {
+	letter-spacing: 0.01em;
+	line-height: 1.47059;
+}
 
+.textPre {
 	.title,
 	.text {
 		white-space: pre-wrap;
+	}
+}
+
+.upper {
+	.title,
+	.text {
+		text-transform: uppercase;
 	}
 }
 
@@ -46,6 +58,16 @@
 	}
 }
 
+.tertiary {
+	.title {
+		color: var(--tertiary-text-color);
+	}
+
+	.text {
+		color: var(--tertiary-text-color);
+	}
+}
+
 .invertedPrimary {
 	.title {
 		color: var(--inverted-primary-text-color);
@@ -63,6 +85,16 @@
 
 	.text {
 		color: var(--inverted-secondary-text-color);
+	}
+}
+
+.invertedTertiary {
+	.title {
+		color: var(--inverted-tertiary-text-color);
+	}
+
+	.text {
+		color: var(--inverted-tertiary-text-color);
 	}
 }
 
@@ -86,6 +118,18 @@
 
 .left {
 	text-align: left;
+}
+
+.size_sm {
+	.title {
+		font-size: var(--font-size-sm-title);
+		line-height: var(--font-line-sm-title);
+	}
+
+	.text {
+		font-size: var(--font-size-sm-text);
+		line-height: var(--font-line-sm-text);
+	}
 }
 
 .size_s {

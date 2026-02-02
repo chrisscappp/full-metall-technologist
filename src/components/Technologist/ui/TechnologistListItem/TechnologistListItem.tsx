@@ -1,12 +1,13 @@
-import { OpeningCard } from '@/UI/OpeningCard/OpeningCard'
-import { memo, MouseEvent, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { TechnologistItem } from '../../lib/types/technologistTypes'
-import { HStack } from '@/UI/Stack'
+import { VStack } from '@/UI/Stack'
 import { Text } from '@/UI/Text/Text'
 import { Button } from '@/UI/Button/Button'
 import cls from './TechnologistListItem.module.scss'
 import { useNavigate } from 'react-router'
-import { getTechnologistDetailRoute } from '@/utils/config/router/router'
+import { getPersonalComputingRoute } from '@/utils/config/router/router'
+import { Card } from '@/UI/Card/Card'
+import { classNames } from '@/utils/lib/classNames/classNames'
 
 interface TechnologistListItemProps {
 	className?: string,
@@ -22,27 +23,22 @@ export const TechnologistListItem = memo((props: TechnologistListItemProps) => {
 
 	const navigate = useNavigate()
 
-	const onFollowToTechnology = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-		e.stopPropagation()
-		navigate(getTechnologistDetailRoute(item?.id ?? ''))
-	}, [item?.id, navigate])
+	const onFollowToComputing = useCallback(() => {
+		navigate(getPersonalComputingRoute(item?.type ?? ''))
+	}, [item?.type, navigate])
 	
 	return (
-		<OpeningCard
-			className={className}
-			mainContent={
-				<HStack gap='20'>
+		<Card className={classNames(cls.TechnologistCard, {}, [className])} hovered callback={onFollowToComputing}>
+			<VStack max gap="20">
+				<VStack max gap="4">
 					<Text title={item?.title} size='size_s'/>
-					<Button onClick={onFollowToTechnology}>К расчету</Button>
-				</HStack>
-			}
-			additionalContent={
-				<HStack gap='16'>
-					<Text textPre text={item?.description}/>
-					{item?.img && <img src={item.img} alt="Пример" className={cls.img} />}
-					
-				</HStack>
-			}
-		/>
+					<Text text={item?.subTitle} size='size_sm' theme="tertiary" upperCase/>
+				</VStack>
+				<Text text={item?.description} size='size_s' theme="secondary"/>
+				<Button className={cls.btn}>
+					К расчету
+				</Button>
+			</VStack>
+		</Card>
 	)
 })

@@ -3,20 +3,56 @@
 @use "./themes/dark.scss";
 @use "./variables/global.scss";
 
+// стили для апп + сторибук
 .app,
 .sb-show-main {
-	display: flex;
-	background: var(--bg-color);
-	min-height: 100vh;
+	background: var(--bg-primary);
+	min-height: 1080vh;
 	font-weight: normal;
-	font-family: 'Inter-Regular', sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
 }
 
+.page-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.content {
+	width: 100%;
+	display: flex;
+	align-items: start;
+}
+
+// стили для сторибук
 .sb-show-main {
 	padding: 20px 30px !important;
 }
 
-@font-face {
-	font-family: 'Inter-Regular';
-	src: url('../../assets/fonts/Inter-Regular.woff') format('opentype');
+.main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	animation: fadeIn 0.2s ease;
+}
+
+.page-content {
+	padding: 32px;
+	width: 100%;
+	max-width: 1320px;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

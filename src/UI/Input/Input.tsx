@@ -1,5 +1,5 @@
 import { classNames, Mods } from '@/utils/lib/classNames/classNames'
-import { ChangeEvent, FocusEvent, InputHTMLAttributes, memo, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FocusEvent, InputHTMLAttributes, memo, useEffect, useRef } from 'react'
 import cls from './Input.module.scss'
 import { Text } from '../Text/Text'
 import { HStack, VStack } from '../Stack'
@@ -31,9 +31,9 @@ export const Input = memo((props: InputProps) => {
 		className,
 		inputClassName,
 		value,
-		placeholder = 'Значение',
+		placeholder='Значение',
 		autoFocus,
-		type = 'text',
+		type='text',
 		onChange,
 		onBlur,
 		readonly,
@@ -49,7 +49,6 @@ export const Input = memo((props: InputProps) => {
 		...restRegister
 	} = register || {}
 	
-	const [isBlur, setIsBlur] = useState(false)
 	const ref = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
@@ -63,27 +62,21 @@ export const Input = memo((props: InputProps) => {
 		registerOnChange?.(e)
 	}
 
-	const onFocus = () => {
-		if (!readonly) setIsBlur(true)
-	}
-
 	const onBlurDefault = (e: FocusEvent<HTMLInputElement>) => {
-		setIsBlur(false)
 		onBlur?.(e)
 		registerOnBlur?.(e)
 	}
 
 	const mods: Mods = {
-		[cls.readonly]: readonly,
-		[cls.blur]: isBlur
+		[cls.readonly]: readonly
 	}
 
 	return (
     	<VStack className={classNames(cls.wrap, {}, [className])} gap="4" max>
       		{(label || error) && (
-				<HStack gap="12" align="center">
-					{label && <Text text={label} />}
-					{error && <Text text={error} theme="error" size="size_s" />}
+				<HStack gap="8" align="center">
+					{label && <Text className={cls.label} text={label} size="size_sm" theme="secondary" upperCase />}
+					{error && <Text text={error} size="size_sm" theme="error" upperCase />}
 				</HStack>
 			)}
       		<input
@@ -91,7 +84,6 @@ export const Input = memo((props: InputProps) => {
         		placeholder={placeholder}
         		readOnly={readonly}
         		type={type}
-				onFocus={onFocus}
 				onBlur={onBlurDefault}
 				onChange={onChangeHandler}
 				value={value}

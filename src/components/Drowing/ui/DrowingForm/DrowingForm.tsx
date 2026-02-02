@@ -8,7 +8,6 @@ import { Input } from '@/UI/Input/Input'
 import { Button } from '@/UI/Button/Button'
 import { CalculateOperationsCountResult, DrowingOperationDataV2, DrowingFormParams } from '../../lib/types/drowing'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { drowingTabsConfig } from '../../lib/consts/drowing'
 import { DrowingResult } from '../DrowingResult/DrowingResult'
 import { basedValidateFormRule } from '@/utils/consts/reactHookForm'
 import { calculateDrawingOperationsCountV2, calculateDrawingOperationsDataV2 } from '../../lib/helpers/calculateNewDrowing/calculateNewDrowing'
@@ -21,6 +20,7 @@ import { getCurrentMoscowTime } from '@/utils/lib/getCurrentMoscowTime/getCurren
 import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/ParseModelVariables'
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import DrowingSketch from '@/assets/image/drowing.jpg'
+import { NumericContent } from '@/UI/NumericContent/NumericContent'
 //import { initialParams } from '../../lib/consts/params'
 
 const initialParams: DrowingFormParams = {
@@ -95,12 +95,23 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 	}, [setValue])
 
 	return (
-		<VStack className={classNames(cls.TechnologistDetailDrowing, {}, [className])} gap='20' max>
+		<VStack className={classNames(cls.TechnologistDetailDrowing, {}, [className])} gap='32' max>
+			<VStack className={cls.header} gap="8" max>
+				<Text
+					title="Вытяжка с утонением стенки"
+					size="size_l"
+				/>
+				<Text
+					text="Работа с моделью КОМПАС 3D и расчет параметров"
+					theme="secondary"
+					size="size_s"
+				/>
+			</VStack>
 			<ParseModelVariablesGuide<Partial<DrowingFormParams>>
 				className={cls.parser}
 				onSetParsedValues={onSetParsedValues}
-				tabId={drowingTabsConfig.model.id}
-				title={drowingTabsConfig.model.title}
+				title="Работа с моделью"
+				description="Для работы с моделью необходимо в программе КОМПАС 3D присвоить необходимым характерным размерам значения переменных, представленных ниже"
 				sketchImg={DrowingSketch}
 				variablesToParse={[
 					['Конечный диаметр (фDн)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'fin_diameter'} onClick={() => onCopyText('fin_diameter')}><Text text={'fin_diameter'} size="size_s" align="center"/></Button>],
@@ -111,116 +122,139 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					['Радиус закругления (Rв)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'rounding_radius'} onClick={() => onCopyText('rounding_radius')}><Text text={'rounding_radius'} size="size_s" align="center"/></Button>]
 				]}
 			/>
-			<Card>
-				<form onSubmit={handleSubmit(onCalculateDrowingOperationsCount)}>
-				<VStack gap="32" max>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.organizationData.id} title={drowingTabsConfig.organizationData.title} size="size_s" weight="weight_bold"/>
-						<Input
-							label="Ваше ФИО"
-							register={{...register('operator_name', { required: 'Поле является обязательным' })}}
-							error={errors.operator_name?.message}
-						/>
-						<Input
-							label="Название организации"
-							register={{...register('organization_name', { required: 'Поле является обязательным' })}}
-							error={errors.organization_name?.message}
-						/>
-						<Input
-							label="Наименование обрабатываемой детали"
-							register={{...register('detail_name', { required: 'Поле является обязательным' })}}
-							error={errors.detail_name?.message}
-						/>
-					</VStack>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.material.id} title={drowingTabsConfig.material.title} size="size_s" weight="weight_bold"/>
-						<SelectMaterial 
-							material={watch('material') as DetailMaterialValueType}
-							onChangeMaterial={onChangeMaterial}
-						/>
-					</VStack>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.geometryParams.id} title={drowingTabsConfig.geometryParams.title} size="size_s" weight="weight_bold"/>
-						<Input
-      						label="Диаметр заготовки D0 (мм)"
-      						register={{...register('init_diameter', basedValidateFormRule)}}
-							error={errors.init_diameter?.message}
-    					/>
-						<Input
-							label="Диаметр полуфабриката фDн (мм)"
-							register={{...register('fin_diameter', basedValidateFormRule)}}
-							error={errors.fin_diameter?.message}
-						/>
-						<Input
-							label="Толщина дна заготовки Sдна (мм)"
-							register={{...register('wall_thickness_down', basedValidateFormRule)}}
-							error={errors.wall_thickness_down?.message}
-						/>
-						<Input
-							label="Толщина стенки в верхнем сечении Sв (мм)"
-							register={{...register('wall_thickness_us', basedValidateFormRule)}}
-							error={errors.wall_thickness_us?.message}
-						/>
-						<Input
-							label="Толщина стенки в нижнем сечении Sн (мм)"
-							register={{...register('wall_thickness_ls', basedValidateFormRule)}}
-							error={errors.wall_thickness_ls?.message}
-						/>
-						<Input
-							label="Высота изделия на последней операции Н (мм)"
-							register={{...register('fin_height', basedValidateFormRule)}}
-							error={errors.fin_height?.message}
-						/>
-					</VStack>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.additionalParams.id} title={drowingTabsConfig.additionalParams.title} size="size_s" weight="weight_bold"/>
-						<Input
-							label="Коэффициент запаса"
-							register={{...register('coefficient_of_stock', basedValidateFormRule)}}
-							error={errors.coefficient_of_stock?.message}
-						/>
-						<Input
-							label="Коэффициент трения"
-							register={{...register('coefficient_of_friction', basedValidateFormRule)}}
-							error={errors.coefficient_of_friction?.message}
-						/>
-						<Input
-							label="Объем готового изделия (мм3)"
-							register={{...register('fin_volume', basedValidateFormRule)}}
-							error={errors.fin_volume?.message}
-						/>
-						<Input
-							label="Радиус закругления Rв (мм)"
-							register={{...register('rounding_radius', basedValidateFormRule)}}
-							error={errors.rounding_radius?.message}
-						/>
-					</VStack>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.maxPull.id} title={drowingTabsConfig.maxPull.title} size="size_s" weight="weight_bold"/>
-						<Input
-							label="На первой операции"
-							register={{...register('max_pull_first_op', basedValidateFormRule)}}
-							error={errors.max_pull_first_op?.message}
-						/>
-						<Input
-							label="На последующих операциях"
-							register={{...register('max_pull_subsequent_op', basedValidateFormRule)}}
-							error={errors.max_pull_subsequent_op?.message}
-						/>
-					</VStack>
-					<VStack gap="12" max>
-						<Text id={drowingTabsConfig.maxThin.id} title={drowingTabsConfig.maxThin.title} size="size_s" weight="weight_bold"/>
-						<Input
-							label="На первой операции"
-							register={{...register('max_thin_first_op', basedValidateFormRule)}}
-							error={errors.max_thin_first_op?.message}
-						/>
-						<Input
-							label="На последующих операциях"
-							register={{...register('max_thin_subsequent_op', basedValidateFormRule)}}
-							error={errors.max_thin_subsequent_op?.message}
-						/>
-					</VStack>
+			<form className={cls.form} onSubmit={handleSubmit(onCalculateDrowingOperationsCount)}>
+				<VStack gap="20" max>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="2">
+								<Text title="Данные организации" size="size_s"/>
+							</NumericContent>
+							<Input
+								label="Ваше ФИО"
+								register={{...register('operator_name', { required: 'Поле является обязательным' })}}
+								error={errors.operator_name?.message}
+							/>
+							<Input
+								label="Название организации"
+								register={{...register('organization_name', { required: 'Поле является обязательным' })}}
+								error={errors.organization_name?.message}
+							/>
+							<Input
+								label="Наименование обрабатываемой детали"
+								register={{...register('detail_name', { required: 'Поле является обязательным' })}}
+								error={errors.detail_name?.message}
+							/>
+						</VStack>
+					</Card>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="3">
+								<Text title="Материал" size="size_s"/>
+							</NumericContent>
+							<SelectMaterial 
+								material={watch('material') as DetailMaterialValueType}
+								onChangeMaterial={onChangeMaterial}
+							/>
+						</VStack>
+					</Card>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="4">
+								<Text title="Геометрические параметры заготовки" size="size_s"/>
+							</NumericContent>
+							<Input
+      							label="Диаметр заготовки D0 (мм)"
+      							register={{...register('init_diameter', basedValidateFormRule)}}
+								error={errors.init_diameter?.message}
+    						/>
+							<Input
+								label="Диаметр полуфабриката фDн (мм)"
+								register={{...register('fin_diameter', basedValidateFormRule)}}
+								error={errors.fin_diameter?.message}
+							/>
+							<Input
+								label="Толщина дна заготовки Sдна (мм)"
+								register={{...register('wall_thickness_down', basedValidateFormRule)}}
+								error={errors.wall_thickness_down?.message}
+							/>
+							<Input
+								label="Толщина стенки в верхнем сечении Sв (мм)"
+								register={{...register('wall_thickness_us', basedValidateFormRule)}}
+								error={errors.wall_thickness_us?.message}
+							/>
+							<Input
+								label="Толщина стенки в нижнем сечении Sн (мм)"
+								register={{...register('wall_thickness_ls', basedValidateFormRule)}}
+								error={errors.wall_thickness_ls?.message}
+							/>
+							<Input
+								label="Высота изделия на последней операции Н (мм)"
+								register={{...register('fin_height', basedValidateFormRule)}}
+								error={errors.fin_height?.message}
+							/>
+						</VStack>
+					</Card>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="5">
+								<Text title="Доп. параметры" size="size_s"/>
+							</NumericContent>
+							<Input
+								label="Коэффициент запаса"
+								register={{...register('coefficient_of_stock', basedValidateFormRule)}}
+								error={errors.coefficient_of_stock?.message}
+							/>
+							<Input
+								label="Коэффициент трения"
+								register={{...register('coefficient_of_friction', basedValidateFormRule)}}
+								error={errors.coefficient_of_friction?.message}
+							/>
+							<Input
+								label="Объем готового изделия (мм3)"
+								register={{...register('fin_volume', basedValidateFormRule)}}
+								error={errors.fin_volume?.message}
+							/>
+							<Input
+								label="Радиус закругления Rв (мм)"
+								register={{...register('rounding_radius', basedValidateFormRule)}}
+								error={errors.rounding_radius?.message}
+							/>
+						</VStack>
+					</Card>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="6">
+								<Text title="Предельный коэффициент вытяжки" size="size_s"/>
+							</NumericContent>
+							<Input
+								label="На первой операции"
+								register={{...register('max_pull_first_op', basedValidateFormRule)}}
+								error={errors.max_pull_first_op?.message}
+							/>
+							<Input
+								label="На последующих операциях"
+								register={{...register('max_pull_subsequent_op', basedValidateFormRule)}}
+								error={errors.max_pull_subsequent_op?.message}
+							/>
+						</VStack>
+					</Card>
+					<Card>
+						<VStack gap="20" max>
+							<NumericContent number="7">
+								<Text title="Предельный коэффициент утонения" size="size_s"/>
+							</NumericContent>
+							<Input
+								label="На первой операции"
+								register={{...register('max_thin_first_op', basedValidateFormRule)}}
+								error={errors.max_thin_first_op?.message}
+							/>
+							<Input
+								label="На последующих операциях"
+								register={{...register('max_thin_subsequent_op', basedValidateFormRule)}}
+								error={errors.max_thin_subsequent_op?.message}
+							/>
+						</VStack>
+					</Card>
 					<Button type="submit">
 						Начать расчет
 					</Button>
@@ -235,7 +269,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 				/>
 			)}
 			{drowingOperationsResult && (
-				<>
+				<VStack className={cls.resultWrap} gap="16" max>
 					<DrowingResult className={cls.result} result={drowingOperationsResult}/>
 					<GenerateExcelReport
 						generatedFunctionName={InkoveFunction.DROWING_EXCEL_REPORT}
@@ -264,9 +298,8 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 							max_thin_subsequent_op: Number(getValues('max_thin_subsequent_op')),
 						}}
 					/>
-				</>
+				</VStack>
 			)}
-			</Card>
 		</VStack>
 	)
 })

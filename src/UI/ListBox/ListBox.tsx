@@ -1,7 +1,7 @@
 import { classNames, Mods } from '@/utils/lib/classNames/classNames'
 import cls from './ListBox.module.scss'
 import { ChangeEvent, memo, useMemo }  from 'react'
-import { HStack } from '../Stack'
+import { VStack } from '../Stack'
 
 export interface ListBoxOption<T extends string> {
 	value: T;
@@ -47,7 +47,7 @@ const ListBoxComponent = <T extends string>(props: ListBoxProps<T>) => {
 	}
 
 	return (
-		<HStack className={classNames(cls.SelectWrapper, mods, [className])} gap="12">
+		<VStack className={classNames(cls.SelectWrapper, mods, [className])} gap="4">
 			{
 				label &&
 				(<span className={cls.label}>
@@ -62,7 +62,7 @@ const ListBoxComponent = <T extends string>(props: ListBoxProps<T>) => {
 			>
 				{optionList}
 			</select>
-		</HStack>
+		</VStack>
 	)
 }
 
