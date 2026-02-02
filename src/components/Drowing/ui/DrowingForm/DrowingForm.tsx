@@ -21,7 +21,7 @@ import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import DrowingSketch from '@/assets/image/drowing.jpg'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
-//import { initialParams } from '../../lib/consts/params'
+import { useDevice } from '@/utils/hooks/useTauri/useTauri'
 
 const initialParams: DrowingFormParams = {
 	init_diameter: 160,                          // Начальный диаметр
@@ -56,6 +56,8 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 	const { onCopyText } = useCopyText()
 	const [drowingOperationsResult, setDrowingOperationsResult] = useState<DrowingOperationDataV2[]>()
 	const [drowingOperationsCount, setDrowingOperationsCount] = useState<CalculateOperationsCountResult>()
+	const { isDesktop } = useDevice() // временная мера
+	let count = isDesktop ? 1 : 0 // временная мера до конфига с сервака
 
 	const onCalculateDrowingOperationsCount: SubmitHandler<DrowingFormParams> = useCallback(async (data) => {
 		let key: keyof DrowingFormParams
@@ -126,7 +128,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 				<VStack gap="20" max>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="2">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Данные организации" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -148,7 +150,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="3">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Материал" size="size_s"/>
 							</NumericContent>
 							<SelectMaterial 
@@ -159,7 +161,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="4">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Геометрические параметры заготовки" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -196,7 +198,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="5">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Доп. параметры" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -223,7 +225,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="6">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Предельный коэффициент вытяжки" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -240,7 +242,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="7">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Предельный коэффициент утонения" size="size_s"/>
 							</NumericContent>
 							<Input

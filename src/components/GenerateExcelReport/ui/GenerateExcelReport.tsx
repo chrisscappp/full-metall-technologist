@@ -4,6 +4,7 @@ import { HStack } from '@/UI/Stack'
 import { Text } from '@/UI/Text/Text'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { classNames } from '@/utils/lib/classNames/classNames'
+import { DesktopComponent } from '@/utils/lib/components/DesktopComponent'
 import { invoke } from '@tauri-apps/api/core'
 import { save } from '@tauri-apps/plugin-dialog'
 import { memo, useCallback, useEffect, useState } from 'react'
@@ -15,7 +16,7 @@ interface GenerateExcelReportProps<T> {
 	reportName?: string
 }
 
-export const GenerateExcelReport = memo(<T extends object>(props: GenerateExcelReportProps<T>) => {
+const GenerateExcelReportContent = <T extends object>(props: GenerateExcelReportProps<T>) => {
 	
 	const { className, data, generatedFunctionName, reportName = 'Отчет' } = props
 
@@ -50,8 +51,7 @@ export const GenerateExcelReport = memo(<T extends object>(props: GenerateExcelR
 			setSuccess('Отчет успешно сгенерирован!')
 		} catch (e: unknown) {
 			console.log(e)
-			//setError('Произошла ошибка при попытке сгенерировать отчет. Попробуйте ещё раз')
-			setError(JSON.stringify(e))
+			setError(JSON.stringify('Произошла ошибка при попытке сгенерировать отчет. Попробуйте ещё раз'))
 		} finally {
 			setIsLoading(false)
 		}
@@ -66,5 +66,13 @@ export const GenerateExcelReport = memo(<T extends object>(props: GenerateExcelR
 			{success && <Text text={success}/>}
 			{error && <Text text={error} theme="error"/>}
 		</HStack>
+	)
+}
+
+export const GenerateExcelReport = memo(<T extends object>(props: GenerateExcelReportProps<T>) => {
+	return (
+		<DesktopComponent>
+			<GenerateExcelReportContent {...props}/>
+		</DesktopComponent>
 	)
 })

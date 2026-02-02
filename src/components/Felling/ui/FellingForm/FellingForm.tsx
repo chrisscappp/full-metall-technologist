@@ -94,11 +94,11 @@ export const FellingForm = memo(({ className }: FellingFormProps) => {
 		<VStack className={classNames(cls.DeforestationForm, {}, [className])} gap='32' max>
 			<VStack className={cls.header} gap="8" max>
 				<Text
-					title="Вытяжка с утонением стенки"
+					title="Вырубка"
 					size="size_l"
 				/>
 				<Text
-					text="Работа с моделью КОМПАС 3D и расчет параметров"
+					text="Расчет параметров"
 					theme="secondary"
 					size="size_s"
 				/>

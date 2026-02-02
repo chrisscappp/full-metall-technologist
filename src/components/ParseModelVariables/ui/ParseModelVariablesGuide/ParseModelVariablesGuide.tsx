@@ -11,6 +11,7 @@ import { ParseDrowingModelResult } from '@/components/ParseModelVariables'
 import cls from './ParseModelVariablesGuide.module.scss'
 import { Card } from '@/UI/Card/Card'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
+import { DesktopComponent } from '@/utils/lib/components/DesktopComponent'
 
 interface ParseModelVariablesGuideProps<T> {
 	className?: string,
@@ -21,7 +22,7 @@ interface ParseModelVariablesGuideProps<T> {
 	sketchImg?: string
 }
 
-const ParseModelVariablesGuideComponent = <T extends object>(props: ParseModelVariablesGuideProps<T>) => {
+export const ParseModelVariablesGuideContent = <T extends object>(props: ParseModelVariablesGuideProps<T>) => {
 	
 	const { 
 		className,
@@ -72,4 +73,10 @@ const ParseModelVariablesGuideComponent = <T extends object>(props: ParseModelVa
 	)
 }
 
-export const ParseModelVariablesGuide = memo(ParseModelVariablesGuideComponent) as <T extends object>(props: ParseModelVariablesGuideProps<T>) => JSX.Element
+export const ParseModelVariablesGuide = memo(<T extends object>(props: ParseModelVariablesGuideProps<T>) => {
+	return (
+		<DesktopComponent>
+			<ParseModelVariablesGuideContent {...props}/>
+		</DesktopComponent>
+	)
+}) as <T extends object>(props: ParseModelVariablesGuideProps<T>) => JSX.Element
