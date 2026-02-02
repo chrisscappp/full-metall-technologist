@@ -19,6 +19,7 @@ import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import { newCalculateCrimping } from '../../lib/helpers/calculateCrimping'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
+import { useDevice } from '@/utils/hooks/useTauri/useTauri'
 
 interface CrimpingFormProps {
 	className?: string
@@ -52,6 +53,8 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 	})
 	const [crimpingResult, setCrimpingResult] = useState<CrimpingCalculateResult>()
 	const { onCopyText } = useCopyText()
+	const { isDesktop } = useDevice() // временная мера
+	let count = isDesktop ? 1 : 0 // временная мера до конфига с сервака
 
 	const onCalculateCrimpingOperationsCount: SubmitHandler<CrimpingFormParams> = useCallback(async (data) => {
 		let key: keyof CrimpingFormParams
@@ -109,7 +112,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 				<VStack gap="20" max>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="2">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Данные организации" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -131,7 +134,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="3">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Материал" size="size_s" weight="weight_bold"/>
 							</NumericContent>
 							<SelectMaterial 
@@ -142,7 +145,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="4">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Диаметр" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -164,7 +167,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="5">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Толщина" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -191,7 +194,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="6">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Параметры материала" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -213,7 +216,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="7">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Доп. параметры" size="size_s"/>
 							</NumericContent>
 							<Input
@@ -230,7 +233,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					</Card>
 					<Card>
 						<VStack gap="20" max>
-							<NumericContent number="8">
+							<NumericContent number={String(count+=1)}>
 								<Text title="Углы конусности ската и корпуса" size="size_s"/>
 							</NumericContent>
 							<Input

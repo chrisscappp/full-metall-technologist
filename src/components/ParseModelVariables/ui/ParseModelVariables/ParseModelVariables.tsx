@@ -8,13 +8,14 @@ import { classNames } from '@/utils/lib/classNames/classNames'
 import { ParseDrowingModelResult } from '../../lib/types/parseDrowingModel'
 import { Loader } from '@/UI/Loader/Loader'
 import { Text } from '@/UI/Text/Text'
+import { DesktopComponent } from '@/utils/lib/components/DesktopComponent'
 
 interface ParseModelVariablesProps<T> {
 	className?: string,
 	onSetParsedValues?: (data: ParseDrowingModelResult<T>) => void
 }
 
-const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariablesProps<T>) => {
+const ParseModelVariablesContent = <T extends object>(props: ParseModelVariablesProps<T>) => {
 	
 	const { className, onSetParsedValues } = props
 
@@ -73,4 +74,10 @@ const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariabl
 	)
 }
 
-export const ParseModelVariables = memo(ParseModelVariablesComponent) as <T extends object>(props: ParseModelVariablesProps<T>) => JSX.Element
+export const ParseModelVariables = memo(<T extends object>(props: ParseModelVariablesProps<T>) => {
+	return (
+		<DesktopComponent>
+			<ParseModelVariablesContent {...props}/>
+		</DesktopComponent>
+	)
+}) as <T extends object>(props: ParseModelVariablesProps<T>) => JSX.Element
