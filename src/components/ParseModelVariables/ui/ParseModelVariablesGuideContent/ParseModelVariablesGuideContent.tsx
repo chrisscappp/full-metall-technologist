@@ -1,6 +1,5 @@
 import { memo, MouseEvent, useCallback } from 'react'
 import { classNames } from '@/utils/lib/classNames/classNames'
-import { ParseModelVariables } from '@/components/ParseModelVariables'
 import { Text } from '@/UI/Text/Text'
 import { HStack, VStack } from '@/UI/Stack'
 import { Table, TableRowsType } from '@/UI/Table/Table'
@@ -8,12 +7,12 @@ import { Button } from '@/UI/Button/Button'
 import { invoke } from '@tauri-apps/api/core'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { ParseDrowingModelResult } from '@/components/ParseModelVariables'
-import cls from './ParseModelVariablesGuide.module.scss'
+import cls from './ParseModelVariablesGuideContent.module.scss'
 import { Card } from '@/UI/Card/Card'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
-import { DesktopComponent } from '@/utils/lib/components/DesktopComponent'
+import { ParseModelVariablesButton } from '../ParseModelVariablesButton/ParseModelVariables'
 
-interface ParseModelVariablesGuideProps<T> {
+export interface ParseModelVariablesGuideProps<T> {
 	className?: string,
 	onSetParsedValues?: (data: ParseDrowingModelResult<T>) => void,
 	title?: string,
@@ -22,7 +21,7 @@ interface ParseModelVariablesGuideProps<T> {
 	sketchImg?: string
 }
 
-export const ParseModelVariablesGuideContent = <T extends object>(props: ParseModelVariablesGuideProps<T>) => {
+const ParseModelVariablesGuideContent = <T extends object>(props: ParseModelVariablesGuideProps<T>) => {
 	
 	const { 
 		className,
@@ -57,7 +56,7 @@ export const ParseModelVariablesGuideContent = <T extends object>(props: ParseMo
 						}} // todo - конфиг на поля таблицы (или вынести логику в Text)
 					/>
 				</HStack>
-				<ParseModelVariables onSetParsedValues={onSetParsedValues}/>
+				<ParseModelVariablesButton onSetParsedValues={onSetParsedValues}/>
 				<HStack gap="16" max align="center">
 					<Button onClick={onOpenDrowingVariablesGuide} theme="tertiary">
 						Открыть инструкцию
@@ -73,10 +72,4 @@ export const ParseModelVariablesGuideContent = <T extends object>(props: ParseMo
 	)
 }
 
-export const ParseModelVariablesGuide = memo(<T extends object>(props: ParseModelVariablesGuideProps<T>) => {
-	return (
-		<DesktopComponent>
-			<ParseModelVariablesGuideContent {...props}/>
-		</DesktopComponent>
-	)
-}) as <T extends object>(props: ParseModelVariablesGuideProps<T>) => JSX.Element
+export default memo(ParseModelVariablesGuideContent) as <T extends object>(props: ParseModelVariablesGuideProps<T>) => JSX.Element

@@ -1,6 +1,6 @@
 import { Button } from '@/UI/Button/Button'
 import { HStack } from '@/UI/Stack'
-import { memo, MouseEvent, useCallback, useEffect, useState } from 'react'
+import { MouseEvent, useCallback, useEffect, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { open } from '@tauri-apps/plugin-dialog'
@@ -8,14 +8,13 @@ import { classNames } from '@/utils/lib/classNames/classNames'
 import { ParseDrowingModelResult } from '../../lib/types/parseDrowingModel'
 import { Loader } from '@/UI/Loader/Loader'
 import { Text } from '@/UI/Text/Text'
-import { DesktopComponent } from '@/utils/lib/components/DesktopComponent'
 
-interface ParseModelVariablesProps<T> {
+interface ParseModelVariablesButtonProps<T> {
 	className?: string,
 	onSetParsedValues?: (data: ParseDrowingModelResult<T>) => void
 }
 
-const ParseModelVariablesContent = <T extends object>(props: ParseModelVariablesProps<T>) => {
+export const ParseModelVariablesButton = <T extends object>(props: ParseModelVariablesButtonProps<T>) => {
 	
 	const { className, onSetParsedValues } = props
 
@@ -67,17 +66,11 @@ const ParseModelVariablesContent = <T extends object>(props: ParseModelVariables
 				Загрузить модель
 			</Button>
 			<Text text="Поддерживаемые форматы: .m3d, .cdw, .spw" size="size_s" theme="tertiary"/>
-			{success && <Text text={success}/>}
-			{error && <Text text={error} theme="error"/>}
+			{success && <Text text={success} theme="secondary" size="size_s"/>}
+			{error && <Text text={error} theme="error" size="size_s"/>}
 			{isLoading && <Loader size="loader_s"/>}
 		</HStack>
 	)
 }
 
-export const ParseModelVariables = memo(<T extends object>(props: ParseModelVariablesProps<T>) => {
-	return (
-		<DesktopComponent>
-			<ParseModelVariablesContent {...props}/>
-		</DesktopComponent>
-	)
-}) as <T extends object>(props: ParseModelVariablesProps<T>) => JSX.Element
+//export default memo(ParseModelVariablesButton) as <T extends object>(props: ParseModelVariablesButtonProps<T>) => JSX.Element

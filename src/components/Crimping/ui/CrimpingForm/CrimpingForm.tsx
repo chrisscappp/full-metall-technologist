@@ -15,7 +15,7 @@ import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { getCurrentMoscowTime } from '@/utils/lib/getCurrentMoscowTime/getCurrentMoscowTime'
 import { GenerateExcelReport } from '@/components/GenerateExcelReport'
 import { DetailMaterialValue, DetailMaterialValueType, SelectMaterial } from '@/components/SelectMaterial'
-import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/ParseModelVariables'
+import { ParseDrowingModelResult, ParseModelVariables } from '@/components/ParseModelVariables'
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import { newCalculateCrimping } from '../../lib/helpers/calculateCrimping'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
@@ -91,7 +91,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 					size="size_s"
 				/>
 			</VStack>
-			<ParseModelVariablesGuide<Partial<CrimpingFormParams>>
+			<ParseModelVariables<Partial<CrimpingFormParams>>
 				className={cls.parser}
 				onSetParsedValues={onSetParsedValues}
 				title="Работа с моделью"

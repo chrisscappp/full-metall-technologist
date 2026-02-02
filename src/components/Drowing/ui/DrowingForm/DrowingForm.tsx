@@ -17,7 +17,7 @@ import { getCurrentDate } from '@/utils/lib/getCurrentDate/getCurrentDate'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { GenerateExcelReport } from '@/components/GenerateExcelReport'
 import { getCurrentMoscowTime } from '@/utils/lib/getCurrentMoscowTime/getCurrentMoscowTime'
-import { ParseDrowingModelResult, ParseModelVariablesGuide } from '@/components/ParseModelVariables'
+import { ParseDrowingModelResult, ParseModelVariables } from '@/components/ParseModelVariables'
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import DrowingSketch from '@/assets/image/drowing.jpg'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
@@ -109,7 +109,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 					size="size_s"
 				/>
 			</VStack>
-			<ParseModelVariablesGuide<Partial<DrowingFormParams>>
+			<ParseModelVariables<Partial<DrowingFormParams>>
 				className={cls.parser}
 				onSetParsedValues={onSetParsedValues}
 				title="Работа с моделью"

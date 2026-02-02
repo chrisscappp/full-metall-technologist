@@ -5,15 +5,15 @@
 }
 
 .icon {
-	width: 48px;
-	height: 48px;
+	width: 30px;
+	height: 30px;
 }
 
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 30px;
+	width: 52px;
+	height: 24px;
 }
 
 .switch input {
@@ -36,10 +36,10 @@
 	position: absolute;
 	border-radius: 50%;
 	content: "";
-	height: 30px;
-	width: 30px;
+	height: 26px;
+	width: 26px;
 	left: -4px;
-	top: -1px;
+	top: -3px;
 	background-color: var(--theme-switcher-label);
 	transition: .4s;
 }
@@ -54,6 +54,7 @@
 	position: absolute;
 	left: -4px;
 	bottom: -2px;
+	top: 2px;
 }
 
 .round {

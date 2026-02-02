@@ -1,12 +1,12 @@
-import { useDevice } from '@/utils/hooks/useTauri/useTauri'
 import { ReactNode } from 'react'
+import { useDevice } from '../../hooks/useTauri/useTauri'
 
 export const DesktopComponent = ({ children }: { children: ReactNode }) => {
 	const { isDesktop } = useDevice()
 
-	if (isDesktop) {
-		return children
-	} else {
+	if (!isDesktop) {
 		return null
 	}
+
+	return children
 }
