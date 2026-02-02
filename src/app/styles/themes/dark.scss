@@ -1,31 +1,42 @@
 .app_dark_theme {
-	--bg-color: #131313;
-	--inverted-bg-color: #fff;
+	// Background
+	--bg-primary: #000;
+	--inverted-bg-primary: #fff;
 
-	--primary-text-color: #fff;
-	--secondary-text-color: #131313;
+	--bg-secondary: #1c1c1e;
+	--inverted-bg-secondary: #c6c6cc; 
 
-	--inverted-primary-text-color: #131313;
-	--inverted-secondary-text-color: #fff;
+	--bg-tertiary: #2c2c2e;
+	--inverted-bg-tertiary: #86868b;
 
-	// Button
-	--button-primary: #fff;
-	--button-hovered-text: #636363;
+	--bg-surface: #1a1a1c;
+	--inverted-bg-surface: #515154;
+
+	// Text
+	--primary-text-color: #f5f5f7;
+	--secondary-text-color: #98989d;
+	--tertiary-text-color: #6c6c70;
+
+	--inverted-primary-text-color: #1d1d1f;
+	--inverted-secondary-text-color: #f5f5f7;
+	--inverted-tertiary-text-color: #98989d;
+
+	// Border
+	--border: #38383a;
+	--border-light: #2d2d30;
+	--accent: #8e8e93;
+	--accent-hover: #a1a1a6;
 
 	// Input
-	--input-bg-color: #e8e8e8;
-	--input-focused-color: #3f70a9;
+	--input-bg-color: #000;
 
 	// Theme Switcher
-	--theme-switcher-bg: #131313;
-	--theme-switcher-label: #131313;
-
-	// Sidebar
-	--sidebar-bg: #fff; 
-
-	// Card
-	--card-bg: #00020F;
+	--theme-switcher-bg: #fff;
+	--theme-switcher-label: #fff;
 
 	// Loader
 	--loader-color: #fff;
+
+	// Sidebar
+	--active-item: rgba(0, 0, 0, 0.2);
 }

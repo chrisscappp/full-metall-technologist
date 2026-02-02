@@ -3,19 +3,24 @@
 }
 
 .label {
-	font-size: var(--font-size-m-text);
-	color: var(--primary-text-color);
+	font-size: var(--font-size-sm-text);
+	color: var(--secondary-text-color);
 	margin-right: 5px;
+	text-transform: uppercase;
+	font-weight: 600;
 }
 
 .select {
 	width: 100%;
-	background: none;
-	outline: none;
-	color: var(--primary-text-color);
-	padding: 6px;
-	border: 1px solid var(--primary-text-color);
-	font-size: var(--font-size-m-text);
+    padding: 10px 16px;
+    font-size: var(--font-size-s-text);
+    font-family: inherit;
+    background: var(--bg-primary);
+    color: var(--primary-text-color);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    appearance: none;
+    padding-right: 32px;
 	cursor: pointer;
 }
 
@@ -23,7 +28,7 @@
 	padding: 8px;
 	color: var(--primary-text-color);
 	background: var(--card-bg);
-	font-size: var(--font-size-m-text);
+	font-size: var(--font-size-s-text);
 }
 
 .readonly {

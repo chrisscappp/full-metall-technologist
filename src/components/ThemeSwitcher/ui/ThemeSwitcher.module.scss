@@ -5,15 +5,15 @@
 }
 
 .icon {
-	width: 48px;
-	height: 48px;
+	width: 30px;
+	height: 30px;
 }
 
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 30px;
+	width: 52px;
+	height: 24px;
 }
 
 .switch input {
@@ -28,6 +28,7 @@
 	right: 0;
 	bottom: 0;
 	background: var(--theme-switcher-bg);
+	border: 2px solid var(--border);
 	transition: .4s;
 }
 
@@ -35,10 +36,10 @@
 	position: absolute;
 	border-radius: 50%;
 	content: "";
-	height: 30px;
-	width: 30px;
-	left: -2px;
-	top: 0px;
+	height: 26px;
+	width: 26px;
+	left: -4px;
+	top: -3px;
 	background-color: var(--theme-switcher-label);
 	transition: .4s;
 }
@@ -49,10 +50,11 @@
 
 .bgSwithed {
 	background: none;
-	border: 3px solid var(--theme-switcher-bg);
+	border: 2px solid var(--theme-switcher-bg);
 	position: absolute;
 	left: -4px;
-	bottom: -4px;
+	bottom: -2px;
+	top: 2px;
 }
 
 .round {

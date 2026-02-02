@@ -8,7 +8,9 @@ type ButtonTheme = {
 	error: 'error',
 	outline: 'outline',
 	background: 'background',
-	outlineInverted: 'outlineInverted'
+	outlineInverted: 'outlineInverted',
+	backgroundInverted: 'backgroundInverted',
+	tertiary: 'tertiary'
 }
 
 type ButtonSize = {

@@ -9,6 +9,7 @@ import BlackHintIcon from '@/assets/icons/hint-black-64-64.svg'
 import WhiteHintIcon from '@/assets/icons/hint-white-64-64.svg'
 import { useTheme } from '@/utils/hooks/useTheme'
 import { DrowingEditCoeffs } from '../DrowingEditCoeffs/DrowingEditCoeffs'
+import { Card } from '@/UI/Card/Card'
 
 interface DrowingCountOperationsProps {
 	className?: string,
@@ -43,36 +44,48 @@ export const DrowingCountOperations = memo((props: DrowingCountOperationsProps) 
 	}, [onChangeOperations, onStopEditCoeff])
 	
 	return (
-		<VStack className={classNames('', {}, [className])} gap='16'>
-			<Text title="Результат расчёта количества операций" weight="weight_bold" />
-			<Text
-        		textPre
-        		text={`Суммарный коэффициент вытяжки: ${operationsResult?.sumDrowingCoeff}
+		<VStack className={classNames(cls.DrowingCountOperations, {}, [className])} max gap="32">
+			<Text title="Результат расчёта количества операций" size="size_l"/>
+			<Card>
+				<VStack gap="24" max>
+					<VStack gap="8">
+						<Text title="Коэффициенты" size="size_s"/>
+						<Text
+        					textPre
+        					text={`Суммарный коэффициент вытяжки: ${operationsResult?.sumDrowingCoeff}
 Суммарный коэффициент утонения: ${operationsResult?.sumThinCoeff}
 Количество операций: ${operationsResult?.operationsCount}`}
-      		/>
-			{!isEditCoeff ? (
-				<VStack gap='8'>
-					<HStack align='center'>
-						<Text title="Были подобраны следующие коэфициенты по операциям" size="size_s" weight="weight_bold"/>
-						<img src={isLightTheme ? BlackHintIcon : WhiteHintIcon} className={cls.hint} title='Коэффициенты расчитаны программно. Вы можете изменить их вручную'/>
-					</HStack>
-					<div>
-						<Text text={`Вытяжка: ${operationsResult.drowingCoeff.join(', ')}`}/>
-						<Text text={`Утонение: ${operationsResult.thinCoeff.join(', ')}`}/>	
-					</div>
-					<HStack gap='12'>
-						<Button onClick={onCalculateDrowingOperationsData}>Произвести расчёт данных по операциям</Button>
-						<Button onClick={onStartEditCoeff} theme='outline'>Редактировать коэффиценты</Button>
-					</HStack>
+							size="size_s"
+      					/>
+					</VStack>
+					<VStack gap="8">
+						{!isEditCoeff ? (
+							<VStack gap='8'>
+								<HStack align='center'>
+									<Text title="Были подобраны следующие коэфициенты по операциям" size="size_s"/>
+									<img src={isLightTheme ? BlackHintIcon : WhiteHintIcon} className={cls.hint} title='Коэффициенты расчитаны программно. Вы можете изменить их вручную'/>
+								</HStack>
+								<Text
+									textPre
+									text={`Вытяжка: ${operationsResult.drowingCoeff.join(', ')}
+Утонение: ${operationsResult.thinCoeff.join(', ')}`}
+									size="size_s"
+								/>
+								<HStack gap='12'>
+									<Button onClick={onCalculateDrowingOperationsData}>Произвести расчёт данных по операциям</Button>
+									<Button onClick={onStartEditCoeff} theme='outline'>Редактировать коэффиценты</Button>
+								</HStack>
+							</VStack>
+						) : (
+							<DrowingEditCoeffs
+								operationsResult={operationsResult}
+								onSaveNewCoeffs={onSaveNewCoeffs}
+								onStopEditCoeff={onStopEditCoeff}
+							/>
+						)}
+					</VStack>
 				</VStack>
-			) : (
-				<DrowingEditCoeffs
-					operationsResult={operationsResult}
-					onSaveNewCoeffs={onSaveNewCoeffs}
-					onStopEditCoeff={onStopEditCoeff}
-				/>
-			)}
+			</Card>
 		</VStack>
 	)
 })

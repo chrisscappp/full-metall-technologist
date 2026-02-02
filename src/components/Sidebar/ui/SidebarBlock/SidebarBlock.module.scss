@@ -1,0 +1,32 @@
+.nav {
+	margin-top: 40px;
+	width: 100%;
+	border-bottom: 1px solid var(--border-light);
+}
+
+.last {
+	margin-bottom: 40px;
+}
+
+.navTitle {
+	padding: 0 20px 12px;
+}
+
+.navItem {
+	text-decoration: none;
+	padding: var(--padding-s);
+	border-left: 2px solid transparent;
+	width: 100%;
+	transition: all 0.15s;
+
+	&:hover {
+		background: var(--active-item);
+		color: var(--primary-text-color);
+	}
+}
+
+.active {
+	background: var(--active-item);
+	color: var(--primary-text-color);
+	border-left-color: var(--primary-text-color);
+}

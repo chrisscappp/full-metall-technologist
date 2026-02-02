@@ -1,28 +1,23 @@
 import { Button } from '@/UI/Button/Button'
 import { HStack } from '@/UI/Stack'
-import { memo, MouseEvent, useCallback, useEffect, useState } from 'react'
-import UploadWhite from '@/assets/icons/upload-white-64-64.svg'
-import UploadDark from '@/assets/icons/upload-black-64-64.svg'
-import { useTheme } from '@/utils/hooks/useTheme'
+import { MouseEvent, useCallback, useEffect, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { InkoveFunction } from '@/utils/consts/inkovedFunctions'
 import { open } from '@tauri-apps/plugin-dialog'
-import cls from './ParseModelVariables.module.scss'
 import { classNames } from '@/utils/lib/classNames/classNames'
 import { ParseDrowingModelResult } from '../../lib/types/parseDrowingModel'
 import { Loader } from '@/UI/Loader/Loader'
 import { Text } from '@/UI/Text/Text'
 
-interface ParseModelVariablesProps<T> {
+interface ParseModelVariablesButtonProps<T> {
 	className?: string,
 	onSetParsedValues?: (data: ParseDrowingModelResult<T>) => void
 }
 
-const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariablesProps<T>) => {
+export const ParseModelVariablesButton = <T extends object>(props: ParseModelVariablesButtonProps<T>) => {
 	
 	const { className, onSetParsedValues } = props
 
-	const { isLightTheme } = useTheme()
 	const [success, setSuccess] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState('')
@@ -66,15 +61,16 @@ const ParseModelVariablesComponent = <T extends object>(props: ParseModelVariabl
 	}, [success])
 
 	return (
-		<HStack className={classNames('', {}, [className])} gap="20">
-			<Button onClick={onPickFile}>
-				Загрузить модель <img src={isLightTheme ? UploadWhite : UploadDark} className={cls.img}/>
+		<HStack className={classNames('', {}, [className])} gap="16" align="center">
+			<Button onClick={onPickFile} theme="backgroundInverted">
+				Загрузить модель
 			</Button>
-			{success && <Text text={success}/>}
-			{error && <Text text={error} theme="error"/>}
+			<Text text="Поддерживаемые форматы: .m3d, .cdw, .spw" size="size_s" theme="tertiary"/>
+			{success && <Text text={success} theme="secondary" size="size_s"/>}
+			{error && <Text text={error} theme="error" size="size_s"/>}
 			{isLoading && <Loader size="loader_s"/>}
 		</HStack>
 	)
 }
 
-export const ParseModelVariables = memo(ParseModelVariablesComponent) as <T extends object>(props: ParseModelVariablesProps<T>) => JSX.Element
+//export default memo(ParseModelVariablesButton) as <T extends object>(props: ParseModelVariablesButtonProps<T>) => JSX.Element
