@@ -1,6 +1,6 @@
-import { Mods, classNames } from '@/utils/lib/classNames/classNames'
+import { classNames } from '@/utils/lib/classNames/classNames'
 import cls from './ThemeSwitcher.module.scss'
-import { CSSProperties, memo, MutableRefObject, useEffect, useRef, useState } from 'react'
+import { memo } from 'react'
 import { useTheme } from '@/utils/hooks/useTheme'
 import SunIcon from '@/assets/icons/sun-64-64.svg'
 import MoonIcon from '@/assets/icons/moon-64-64.svg'
@@ -9,54 +9,24 @@ interface ThemeSwitcherProps {
 	className?: string
 }
 
-export const ThemeSwitcher = memo((props: ThemeSwitcherProps) => {
-
-	const { className } = props
+export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
 
 	const { toggleTheme, isDarkTheme, isLightTheme } = useTheme()
-	const [ isSwitched, setIsSwitched ] = useState(false)
-
-	const ref = useRef() as MutableRefObject<CSSProperties>
-
-	useEffect(() => {
-		if (isDarkTheme) {
-			setIsSwitched(true)
-		}
-	}, [isDarkTheme])
-
-	const onSwitch = () => {
-		toggleTheme()
-		setIsSwitched(!isSwitched)
-	}
-
-	const mods: Mods = {
-		[cls.dark]: isDarkTheme,
-		[cls.round]: true,
-		[cls.bgSwithed]: isSwitched
-	}
 
 	return (
-		<div className = {classNames(cls.ThemeSwitcher, {}, [className])}>
+		<div className={classNames(cls.ThemeSwitcher, {}, [className])}>
 			<label className={cls.switch}>
 				<input 
 					type="checkbox" 
-					onClick = {onSwitch}
+					onClick={toggleTheme}
 				/>
-				<span 
-					className={classNames(cls.slider, mods, [])}
-				>
+				<span className={classNames(cls.slider, {[cls.bgSwithed]: isDarkTheme}, [])}>
 					<div
-						//@ts-ignore
-						ref={ref}
-						className={classNames(cls.ball, {[cls.isSwitched]: isSwitched}, [])}>
+						className={classNames(cls.ball, {[cls.isSwitched]: isDarkTheme}, [])}>
 					</div>
 				</span>
 			</label>
-			{isLightTheme ? (
-				<img src={SunIcon} className={cls.icon} />
-			) : (
-				<img src={MoonIcon} className={cls.icon} />
-			)}
+			<img src={isLightTheme ? SunIcon : MoonIcon} className={cls.icon} />
 		</div>
 	)
 })

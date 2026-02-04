@@ -29,6 +29,7 @@
 	bottom: 0;
 	background: var(--theme-switcher-bg);
 	border: 2px solid var(--border);
+	border-radius: 34px;
 	transition: .4s;
 }
 
@@ -45,7 +46,7 @@
 }
 
 .isSwitched {
-	transform: translateX(36px);
+	transform: translateX(32px);
 }
 
 .bgSwithed {
@@ -58,9 +59,5 @@
 }
 
 .round {
-	border-radius: 34px;
-}
-
-.round:before {
-	border-radius: 50%;
+	
 }
