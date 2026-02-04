@@ -1,1 +1,0 @@
-import{i as a}from"./PersonalComputingPage-0hF2OQSp.js";async function f(e={}){return typeof e=="object"&&Object.freeze(e),await a("plugin:dialog|open",{options:e})}async function i(e={}){return typeof e=="object"&&Object.freeze(e),await a("plugin:dialog|save",{options:e})}export{f as o,i as s};
