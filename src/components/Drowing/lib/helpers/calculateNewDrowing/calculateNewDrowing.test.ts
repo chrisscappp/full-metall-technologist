@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest'
-import { calculateDrawingOperationsCountV2, calculateDrawingOperationsDataV2, calculateOperationsCount, normalizeOpertionsV2 } from './calculateNewDrowing'
-import { initialParams } from '../../consts/params'
+import { calculateDrowingOperationsCountV2, calculateDrowingOperationsDataV2, calculateOperationsCount, normalizeOpertionsV2 } from './calculateNewDrowing'
 import { CalculateOperationsCountResult, DrowingOperationDataV2 } from '../../types/drowing'
+import { initialParams } from '../../../ui/DrowingForm/DrowingForm'
 
 describe('calculateNewDrowing', () => {
 	test('normalize opreations data 1', () => {
@@ -29,8 +29,8 @@ describe('calculateNewDrowing', () => {
 			sumThinCoeff: 0.5,
 			thinCoeff: [0.6, 0.83]
 		}
-		expect(calculateDrawingOperationsCountV2(initialParams)).toEqual<CalculateOperationsCountResult>(result)
-		expect(calculateDrawingOperationsDataV2(initialParams, result)).toEqual<DrowingOperationDataV2[]>([
+		expect(calculateDrowingOperationsCountV2(initialParams)).toEqual<CalculateOperationsCountResult>(result)
+		expect(calculateDrowingOperationsDataV2(initialParams, result)).toEqual<DrowingOperationDataV2[]>([
 			{
 				amount_of_effort_hub: 634.94,
 				area_changes_us: 0.47,
@@ -103,9 +103,9 @@ describe('calculateNewDrowing', () => {
 			max_pull_first_op: 0.4,
 			max_pull_subsequent_op: 0.5
 		}
-		expect(calculateDrawingOperationsCountV2(newParams)).toEqual<CalculateOperationsCountResult>(result)
+		expect(calculateDrowingOperationsCountV2(newParams)).toEqual<CalculateOperationsCountResult>(result)
 		
-		expect(calculateDrawingOperationsDataV2(initialParams, result)).toEqual<DrowingOperationDataV2[]>([{
+		expect(calculateDrowingOperationsDataV2(initialParams, result)).toEqual<DrowingOperationDataV2[]>([{
 			amount_of_effort_hub: 2837.58,
 			area_changes_us: 0.64,
 			bottom_thin: 0.5,

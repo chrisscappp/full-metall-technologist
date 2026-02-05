@@ -44,9 +44,9 @@ export const ParseModelVariablesButton = <T extends object>(props: ParseModelVar
 				setSuccess(parseResult.message)
 				onSetParsedValues?.(parseResult)
 			}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (e: unknown) {
-			setError(JSON.stringify(e))
-			// произошла ошибка при попытке открыть чертеж. попробуйте еще раз
+			setError('Произошла ошибка при попытке открыть чертеж. попробуйте еще раз')
 		} finally {
 			setIsLoading(false)
 		}
@@ -72,5 +72,3 @@ export const ParseModelVariablesButton = <T extends object>(props: ParseModelVar
 		</HStack>
 	)
 }
-
-//export default memo(ParseModelVariablesButton) as <T extends object>(props: ParseModelVariablesButtonProps<T>) => JSX.Element

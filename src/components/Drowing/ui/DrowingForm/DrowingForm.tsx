@@ -10,7 +10,7 @@ import { CalculateOperationsCountResult, DrowingOperationDataV2, DrowingFormPara
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { DrowingResult } from '../DrowingResult/DrowingResult'
 import { basedValidateFormRule } from '@/utils/consts/reactHookForm'
-import { calculateDrawingOperationsCountV2, calculateDrawingOperationsDataV2 } from '../../lib/helpers/calculateNewDrowing/calculateNewDrowing'
+import { calculateDrowingOperationsCountV2, calculateDrowingOperationsDataV2 } from '../../lib/helpers/calculateNewDrowing/calculateNewDrowing'
 import { DrowingCountOperations } from '../DrowingCountOperations/DrowingCountOperations'
 import { DetailMaterialValue, DetailMaterialValueType, SelectMaterial } from '@/components/SelectMaterial'
 import { getCurrentDate } from '@/utils/lib/getCurrentDate/getCurrentDate'
@@ -19,11 +19,10 @@ import { GenerateExcelReport } from '@/components/GenerateExcelReport'
 import { getCurrentMoscowTime } from '@/utils/lib/getCurrentMoscowTime/getCurrentMoscowTime'
 import { ParseDrowingModelResult, ParseModelVariables } from '@/components/ParseModelVariables'
 import { useCopyText } from '@/utils/hooks/useCopyText'
-import DrowingSketch from '@/assets/image/drowing.jpg'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
-import { useDevice } from '@/utils/hooks/useTauri/useTauri'
+import { isTauri } from '@tauri-apps/api/core'
 
-const initialParams: DrowingFormParams = {
+export const initialParams: DrowingFormParams = {
 	init_diameter: 160,                          // Начальный диаметр
 	fin_diameter: 91.8,                          // Конечный диаметр
 	coefficient_of_stock: 1.2,                   // Коэффициент запаса
@@ -56,8 +55,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 	const { onCopyText } = useCopyText()
 	const [drowingOperationsResult, setDrowingOperationsResult] = useState<DrowingOperationDataV2[]>()
 	const [drowingOperationsCount, setDrowingOperationsCount] = useState<CalculateOperationsCountResult>()
-	const { isDesktop } = useDevice() // временная мера
-	let count = isDesktop ? 1 : 0 // временная мера до конфига с сервака
+	let count = isTauri() ? 1 : 0 // временная мера до конфига с сервака
 
 	const onCalculateDrowingOperationsCount: SubmitHandler<DrowingFormParams> = useCallback(async (data) => {
 		let key: keyof DrowingFormParams
@@ -66,14 +64,14 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 			//@ts-ignore
 			data[key] = Number(data[key])
 		}
-		const res = await calculateDrawingOperationsCountV2(data)
+		const res = await calculateDrowingOperationsCountV2(data)
 		setDrowingOperationsCount(res)
 	}, [])
 
 	const onCalculateDrowingOperationsData = useCallback(async () => {
 		const data = getValues()
 		if (data && drowingOperationsCount) {
-			const res = await calculateDrawingOperationsDataV2(data as DrowingFormParams, drowingOperationsCount)
+			const res = await calculateDrowingOperationsDataV2(data as DrowingFormParams, drowingOperationsCount)
 			setDrowingOperationsResult(res)
 		}
 	}, [drowingOperationsCount, getValues])
@@ -110,18 +108,16 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 				/>
 			</VStack>
 			<ParseModelVariables<Partial<DrowingFormParams>>
-				className={cls.parser}
 				onSetParsedValues={onSetParsedValues}
 				title="Работа с моделью"
 				description="Для работы с моделью необходимо в программе КОМПАС 3D присвоить необходимым характерным размерам значения переменных, представленных ниже"
-				sketchImg={DrowingSketch}
 				variablesToParse={[
-					['Конечный диаметр (фDн)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'fin_diameter'} onClick={() => onCopyText('fin_diameter')}><Text text={'fin_diameter'} size="size_s" align="center"/></Button>],
-					['Толщина дна заготовки (Sдна)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_down'} onClick={() => onCopyText('wall_thickness_down')}><Text text={'wall_thickness_down'} size="size_s" align="center"/></Button>], 
-					['Толщина стенки в нижнем сечении (Sн)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_ls'} onClick={() => onCopyText('wall_thickness_ls')}><Text text={'wall_thickness_ls'} size="size_s" align="center"/></Button>],
-					['Толщина стенки в верхнем сечении (Sв)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_us'} onClick={() => onCopyText('wall_thickness_us')}><Text text={'wall_thickness_us'} size="size_s" align="center"/></Button>],
-					['Высота на последней операции (H)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'fin_height'} onClick={() => onCopyText('fin_height')}><Text text={'fin_height'} size="size_s" align="center"/></Button>],
-					['Радиус закругления (Rв)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'rounding_radius'} onClick={() => onCopyText('rounding_radius')}><Text text={'rounding_radius'} size="size_s" align="center"/></Button>]
+					['Конечный диаметр (фDн)', <Button title="Скопировать" theme="clear" size="size_s" key={'fin_diameter'} onClick={() => onCopyText('fin_diameter')}><Text text={'fin_diameter'} size="size_s" align="center"/></Button>],
+					['Толщина дна заготовки (Sдна)', <Button title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_down'} onClick={() => onCopyText('wall_thickness_down')}><Text text={'wall_thickness_down'} size="size_s" align="center"/></Button>], 
+					['Толщина стенки в нижнем сечении (Sн)', <Button title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_ls'} onClick={() => onCopyText('wall_thickness_ls')}><Text text={'wall_thickness_ls'} size="size_s" align="center"/></Button>],
+					['Толщина стенки в верхнем сечении (Sв)', <Button title="Скопировать" theme="clear" size="size_s" key={'wall_thickness_us'} onClick={() => onCopyText('wall_thickness_us')}><Text text={'wall_thickness_us'} size="size_s" align="center"/></Button>],
+					['Высота на последней операции (H)', <Button title="Скопировать" theme="clear" size="size_s" key={'fin_height'} onClick={() => onCopyText('fin_height')}><Text text={'fin_height'} size="size_s" align="center"/></Button>],
+					['Радиус закругления (Rв)', <Button title="Скопировать" theme="clear" size="size_s" key={'rounding_radius'} onClick={() => onCopyText('rounding_radius')}><Text text={'rounding_radius'} size="size_s" align="center"/></Button>]
 				]}
 			/>
 			<form className={cls.form} onSubmit={handleSubmit(onCalculateDrowingOperationsCount)}>
@@ -154,6 +150,7 @@ export const DrowingForm = memo(({ className }: DrowingFormProps) => {
 								<Text title="Материал" size="size_s"/>
 							</NumericContent>
 							<SelectMaterial 
+								defaultMaterial={initialParams.material as DetailMaterialValue}
 								material={watch('material') as DetailMaterialValueType}
 								onChangeMaterial={onChangeMaterial}
 							/>

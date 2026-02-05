@@ -1,6 +1,3 @@
-//export type EstimatedValueType = [number, string]
-// todo [BE_D][BE_W] Изменение возвращаемого результата расчетов
-
 export interface ParseDrowingModelResultData<T> {
 	error: string,
 	modelParams: {

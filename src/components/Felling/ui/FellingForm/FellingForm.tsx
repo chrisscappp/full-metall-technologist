@@ -89,9 +89,9 @@ export const FellingForm = memo(({ className }: FellingFormProps) => {
 		setCutting(value)
 		setIsCheckmate(value === Felling.CHECKMATE)
 	}, [])
-	
+
 	return (
-		<VStack className={classNames(cls.DeforestationForm, {}, [className])} gap='32' max>
+		<VStack className={classNames('', {}, [className])} gap='32' max>
 			<VStack className={cls.header} gap="8" max>
 				<Text
 					title="Вырубка"
@@ -133,6 +133,7 @@ export const FellingForm = memo(({ className }: FellingFormProps) => {
 								<Text title="Материал" size="size_s"/>
 							</NumericContent>
 							<SelectMaterial 
+								defaultMaterial={initialValues.material as DetailMaterialValue}
 								material={watch('material') as DetailMaterialValueType}
 								onChangeMaterial={onChangeMaterial}
 							/>

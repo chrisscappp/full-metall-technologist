@@ -37,7 +37,7 @@
     "@storybook/addon-vitest": "^9.1.13",
     "@storybook/react-vite": "^9.1.13",
     "@tauri-apps/api": "^2.4.1",
-    "@tauri-apps/cli": "^2",
+    "@tauri-apps/cli": "^2.0.0",
     "@types/node": "^22.15.21",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",

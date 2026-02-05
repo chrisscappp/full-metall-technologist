@@ -36,23 +36,10 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	animation: fadeIn 0.2s ease;
 }
 
 .page-content {
 	padding: 32px;
 	width: 100%;
 	max-width: 1320px;
-}
-
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-
-	100% {
-		opacity: 1;
-		transform: translateY(0);
-	}
 }
