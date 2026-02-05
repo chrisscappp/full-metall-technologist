@@ -33,7 +33,6 @@ const ParseModelVariablesGuideContent = <T extends object>(props: ParseModelVari
 
 	const onOpenDrowingVariablesGuide = useCallback(async (e: MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
-		// для веба сделать аналог
 		await invoke(InkoveFunction.OPEN_PARSE_MODEL_VARIABLES_GUIDE)
 	}, [])
 	
@@ -53,7 +52,7 @@ const ParseModelVariablesGuideContent = <T extends object>(props: ParseModelVari
 						items={{
 							titles: ['Обозначение', 'Название переменной'],
 							rows: variablesToParse
-						}} // todo - конфиг на поля таблицы (или вынести логику в Text)
+						}}
 					/>
 				</HStack>
 				<ParseModelVariablesButton onSetParsedValues={onSetParsedValues}/>

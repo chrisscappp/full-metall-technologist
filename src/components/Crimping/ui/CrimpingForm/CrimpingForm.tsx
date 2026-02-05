@@ -19,7 +19,7 @@ import { ParseDrowingModelResult, ParseModelVariables } from '@/components/Parse
 import { useCopyText } from '@/utils/hooks/useCopyText'
 import { newCalculateCrimping } from '../../lib/helpers/calculateCrimping'
 import { NumericContent } from '@/UI/NumericContent/NumericContent'
-import { useDevice } from '@/utils/hooks/useTauri/useTauri'
+import { isTauri } from '@tauri-apps/api/core'
 
 interface CrimpingFormProps {
 	className?: string
@@ -53,8 +53,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 	})
 	const [crimpingResult, setCrimpingResult] = useState<CrimpingCalculateResult>()
 	const { onCopyText } = useCopyText()
-	const { isDesktop } = useDevice() // временная мера
-	let count = isDesktop ? 1 : 0 // временная мера до конфига с сервака
+	let count = isTauri() ? 1 : 0 // временная мера до конфига с сервака
 
 	const onCalculateCrimpingOperationsCount: SubmitHandler<CrimpingFormParams> = useCallback(async (data) => {
 		let key: keyof CrimpingFormParams
@@ -92,20 +91,19 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 				/>
 			</VStack>
 			<ParseModelVariables<Partial<CrimpingFormParams>>
-				className={cls.parser}
 				onSetParsedValues={onSetParsedValues}
 				title="Работа с моделью"
 				description="Для работы с моделью необходимо в программе КОМПАС 3D присвоить необходимым характерным размерам значения переменных, представленных ниже"
 				variablesToParse={[
-					['Диаметр изделия в.р.с (фd1)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'up_init_diameter'} onClick={() => onCopyText('up_init_diameter')}><Text text={'up_init_diameter'} size="size_s" align="center"/></Button>],
-					['Диаметр изделия с.р.с (фd2)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'mid_init_diameter'} onClick={() => onCopyText('mid_init_diameter')}><Text text={'mid_init_diameter'} size="size_s" align="center"/></Button>],
-					['Диаметр изделия н.р.с (фd3)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'down_init_diameter'} onClick={() => onCopyText('down_init_diameter')}><Text text={'down_init_diameter'} size="size_s" align="center"/></Button>],
-					['Толщина стенки в.р.с. (S1)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'up_init_thin'} onClick={() => onCopyText('up_init_thin')}><Text text={'up_init_thin'} size="size_s" align="center"/></Button>], 
-					['Толщина стенки с.р.с. (S2)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'mid_init_thin'} onClick={() => onCopyText('mid_init_thin')}><Text text={'mid_init_thin'} size="size_s" align="center"/></Button>], 
-					['Толщина стенки н.р.с. (S3)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'down_init_thin'} onClick={() => onCopyText('down_init_thin')}><Text text={'down_init_thin'} size="size_s" align="center"/></Button>], 
-					['Высота ската (h2)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'ramp_height'} onClick={() => onCopyText('ramp_height')}><Text text={'ramp_height'} size="size_s" align="center"/></Button>],
-					['Угол a (a)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'angle_a'} onClick={() => onCopyText('angle_a')}><Text text={'angle_a'} size="size_s" align="center"/></Button>],
-					['Угол b (b)', <Button className={cls.btn} title="Скопировать" theme="clear" size="size_s" key={'angle_b'} onClick={() => onCopyText('angle_b')}><Text text={'angle_b'} size="size_s" align="center"/></Button>]
+					['Диаметр изделия в.р.с (фd1)', <Button title="Скопировать" theme="clear" size="size_s" key={'up_init_diameter'} onClick={() => onCopyText('up_init_diameter')}><Text text={'up_init_diameter'} size="size_s" align="center"/></Button>],
+					['Диаметр изделия с.р.с (фd2)', <Button title="Скопировать" theme="clear" size="size_s" key={'mid_init_diameter'} onClick={() => onCopyText('mid_init_diameter')}><Text text={'mid_init_diameter'} size="size_s" align="center"/></Button>],
+					['Диаметр изделия н.р.с (фd3)', <Button title="Скопировать" theme="clear" size="size_s" key={'down_init_diameter'} onClick={() => onCopyText('down_init_diameter')}><Text text={'down_init_diameter'} size="size_s" align="center"/></Button>],
+					['Толщина стенки в.р.с. (S1)', <Button title="Скопировать" theme="clear" size="size_s" key={'up_init_thin'} onClick={() => onCopyText('up_init_thin')}><Text text={'up_init_thin'} size="size_s" align="center"/></Button>], 
+					['Толщина стенки с.р.с. (S2)', <Button title="Скопировать" theme="clear" size="size_s" key={'mid_init_thin'} onClick={() => onCopyText('mid_init_thin')}><Text text={'mid_init_thin'} size="size_s" align="center"/></Button>], 
+					['Толщина стенки н.р.с. (S3)', <Button title="Скопировать" theme="clear" size="size_s" key={'down_init_thin'} onClick={() => onCopyText('down_init_thin')}><Text text={'down_init_thin'} size="size_s" align="center"/></Button>], 
+					['Высота ската (h2)', <Button title="Скопировать" theme="clear" size="size_s" key={'ramp_height'} onClick={() => onCopyText('ramp_height')}><Text text={'ramp_height'} size="size_s" align="center"/></Button>],
+					['Угол a (a)', <Button title="Скопировать" theme="clear" size="size_s" key={'angle_a'} onClick={() => onCopyText('angle_a')}><Text text={'angle_a'} size="size_s" align="center"/></Button>],
+					['Угол b (b)', <Button title="Скопировать" theme="clear" size="size_s" key={'angle_b'} onClick={() => onCopyText('angle_b')}><Text text={'angle_b'} size="size_s" align="center"/></Button>]
 				]}
 			/>
 			<form className={cls.form} onSubmit={handleSubmit(onCalculateCrimpingOperationsCount)}>
@@ -138,6 +136,7 @@ export const CrimpingForm = memo(({ className }: CrimpingFormProps) => {
 								<Text title="Материал" size="size_s" weight="weight_bold"/>
 							</NumericContent>
 							<SelectMaterial 
+								defaultMaterial={initialParams.material as DetailMaterialValue}
 								material={watch('material') as DetailMaterialValueType}
 								onChangeMaterial={onChangeMaterial}
 							/>

@@ -48,8 +48,8 @@ const GenerateExcelReportContent = <T extends object>(props: GenerateExcelReport
 				data
 			})
 			setSuccess('Отчет успешно сгенерирован!')
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (e: unknown) {
-			console.log(e)
 			setError(JSON.stringify('Произошла ошибка при попытке сгенерировать отчет. Попробуйте ещё раз'))
 		} finally {
 			setIsLoading(false)

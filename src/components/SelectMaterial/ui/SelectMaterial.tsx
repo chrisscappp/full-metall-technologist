@@ -1,5 +1,5 @@
 import { VStack } from '@/UI/Stack'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { ListBox, ListBoxOption } from '@/UI/ListBox/ListBox'
 import { Input } from '@/UI/Input/Input'
 import { DetailMaterialValue } from '../lib/consts/material'
@@ -29,31 +29,10 @@ export const SelectMaterial = memo((props: SelectMaterialProps) => {
 
 	const { className, defaultMaterial, onChangeMaterial, material } = props
 
-	const [isOtherMaterial, setIsOtherMaterial] = useState(false)
-	const [materialValue, setMaterialValue] = useState('')
 	const [listBoxValue, setListBoxValue] = useState(defaultMaterial)
 
-	useEffect(() => {
-		const finded = materialOptions.find(item => item.value === material)
-		if (!finded) {
-			setIsOtherMaterial(true)
-			setListBoxValue(DetailMaterialValue.OTHER)
-			setMaterialValue(material ?? '')
-		} else {
-			setIsOtherMaterial(false)
-			setListBoxValue(finded.value)
-		}
-	}, [material])
-
 	const onChangeListBoxMaterial = useCallback((value: DetailMaterialValue) => {
-		if (value !== DetailMaterialValue.OTHER) {
-			setIsOtherMaterial(false)
-			onChangeMaterial?.(value)
-			setMaterialValue('')
-		} else {
-			setIsOtherMaterial(true)
-			onChangeMaterial?.('')
-		}
+		onChangeMaterial?.(value === DetailMaterialValue.OTHER ? '' : value)
 		setListBoxValue(value)
 	}, [onChangeMaterial])
 
@@ -69,10 +48,10 @@ export const SelectMaterial = memo((props: SelectMaterialProps) => {
 				value={listBoxValue}
 				onChange={onChangeListBoxMaterial}			
 			/>
-			{isOtherMaterial && (
+			{listBoxValue === DetailMaterialValue.OTHER && (
 				<Input
 					placeholder="Введите название материала"
-					value={materialValue}
+					value={material}
 					onChange={onChangeOtherMaterialValue}
 				/>
 			)}

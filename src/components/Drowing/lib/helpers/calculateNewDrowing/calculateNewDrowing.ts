@@ -367,7 +367,7 @@ export const normalizeOpertionsV2 = (opertionsResult: CalculateOperationsCountRe
 	console.log('Коэф. утонения после балансировки: ', thinCoeffArr)
 }
 
-export const calculateDrawingOperationsCountV2 = (params: DrowingFormParams) => {
+export const calculateDrowingOperationsCountV2 = (params: DrowingFormParams) => {
 	const operationsResult = calculateOperationsCount(params)
 	//normalizeOpertions(operationsResult, Number(params.max_pull_subsequent_op), Number(params.max_thin_subsequent_op))
 	normalizeOpertionsV2(operationsResult, Number(params.max_pull_subsequent_op), Number(params.max_thin_subsequent_op))
@@ -381,7 +381,7 @@ const calculateExecutiveDimensionsHob = (value: number) => {
     return Number((value + pp - (value * 0.01) + tdn).toFixed(decimalPlacesCount))
 } 
 
-export const calculateDrawingOperationsDataV2 = (params: DrowingFormParams, operationsCountResult: CalculateOperationsCountResult) => {
+export const calculateDrowingOperationsDataV2 = (params: DrowingFormParams, operationsCountResult: CalculateOperationsCountResult) => {
 	const operations: DrowingOperationDataV2[] = [] 
 
 	// Инициализация первой операции (свертки)
